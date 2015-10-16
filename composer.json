@@ -1,0 +1,10 @@
+{
+  "require-dev": {
+    "php": ">=5.5.0",
+    "nette/di": "~2.3.0",
+    "nette/tester": "~1.5.0"
+  },
+  "autoload-dev": {
+    "classmap": ["src/"]
+  }
+}
