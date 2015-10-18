@@ -11,10 +11,12 @@
 
 See more in codes [config](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/neon/syntax.neon), [extension](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/extension/SyntaxExtension.php).
 
+### Simple
+
+#### Config
+
 ```yaml
 services:
-
-    # SIMPLE =====================================
     a1: TestClass
 
     a2:
@@ -22,8 +24,29 @@ services:
 
     a3:
         create: TestClass
+```
 
-    # OPTIONS ====================================
+#### Extension
+
+```php
+$builder = $this->getContainerBuilder();
+
+$builder->addDefinition('a1')
+    ->setClass('TestClass');
+
+$builder->addDefinition('a2')
+    ->setClass('TestClass');
+
+$builder->addDefinition('a3')
+    ->setFactory('TestClass');
+```
+
+### Options
+
+#### Config
+
+```yaml
+services:
     b1:
         class: TestClass
         autowired: off
@@ -31,8 +54,28 @@ services:
     b2:
         class: TestClass
         inject: on
+```
 
-    # ARGUMENTS ====================================
+#### Extension
+
+```php
+$builder = $this->getContainerBuilder();
+
+$builder->addDefinition('b1')
+    ->setClass('TestClass')
+    ->setAutowired(FALSE);
+
+$builder->addDefinition('b2')
+    ->setClass('TestClass')
+    ->setInject(TRUE);
+```
+
+### Arguments
+
+#### Config
+
+```yaml
+services:
     c1a: TestClass2(1, 2)
 
     c1b:
@@ -50,16 +93,69 @@ services:
     c3b:
         class: TestClass2
         arguments: [b: 2]
+```
 
-    # TAGS =======================================
+#### Extension
+
+```php
+$builder = $this->getContainerBuilder();
+
+$builder->addDefinition('c1a')
+    ->setClass('TestClass2')
+    ->setArguments([1, 2]);
+
+$builder->addDefinition('c1b')
+    ->setClass('TestClass2', [1, 2]);
+
+$builder->addDefinition('c2a')
+    ->setClass('TestClass2')
+    ->setArguments([1]);
+
+$builder->addDefinition('c2b')
+    ->setClass('TestClass2', [1]);
+
+$builder->addDefinition('c3a')
+    ->setClass('TestClass2')
+    ->setArguments(['b' => 2]);
+
+$builder->addDefinition('c3b')
+    ->setClass('TestClass2', ['b' => 2]);
+```
+
+### Tags
+
+#### Config
+
+```yaml
+services:
     d1:
         class: TestClass
         tags: [t1]
     d2:
         class: TestClass
         tags: [t1: foobar]
+```
 
-    # ARGUMENTS + PARAMETERS =====================
+#### Extension
+
+```php
+$builder = $this->getContainerBuilder();
+
+$builder->addDefinition('d1')
+    ->setClass('TestClass')
+    ->addTag('t1');
+
+$builder->addDefinition('d2')
+    ->setClass('TestClass')
+    ->setTags(['t1' => 'foobar']);
+```
+
+### Arguments + parameters
+
+#### Config
+
+```yaml
+services:
     e1:
         class: TestClass2
         parameters: [a]
@@ -77,8 +173,41 @@ services:
     e4:
         class: TestClass2(b: %a%)
         parameters: [a]
+```
 
-    # IMPLEMENTS (INTERFACES) ====================
+#### Extension
+
+```php
+$builder = $this->getContainerBuilder();
+
+// $->setClass()->setArguments() <==> $->setFactory()
+
+$builder->addDefinition('e1')
+    ->setClass('TestClass2')
+    ->setArguments([$builder->literal('$a')])
+    ->setParameters(['a']);
+
+$builder->addDefinition('e2')
+    ->setClass('TestClass2', [$builder->literal('$a'), $builder->literal('$b')])
+    ->setParameters(['a' => NULL, 'b' => 1]);
+
+$builder->addDefinition('e3')
+    ->setClass('TestClass2')
+    ->setArguments([$builder->literal('$a')])
+    ->setParameters(['a']);
+
+$builder->addDefinition('e4')
+    ->setClass('TestClass2')
+    ->setArguments([NULL, $builder->literal('$a')])
+    ->setParameters(['a']);
+```
+
+### Implements (interfaces)
+
+#### Config
+
+```yaml
+services:
     f1:
         implement: ITestInterface
 
@@ -122,144 +251,12 @@ services:
         implement: ITestInterface3
         parameters: [c: 1]
         arguments: [%c%]
-
-    # REFERENCES =================================
-    g1:
-        class: TestClass2
-        parameters: [a: NULL, b: NULL]
-        arguments: [%a%, %b%]
-
-    g2: @g1
-
-    g3:
-        factory: @g1
-        arguments: [1]
-
-    g4:
-        factory: @g1
-        parameters: [b]
-        arguments: [b: %b%]
-
-    g5a:
-        class: stdClass
-        factory: @g1::foo()
-
-    g5b:
-        class: stdClass
-        factory: @g1::foo
-        parameters: [bar]
-        arguments: [%bar%]
-
-    g5c:
-        class: stdClass
-        factory: @g1::foo(%bar%)
-        parameters: [bar]
-
-    g5d:
-        class: stdClass
-        factory: @g1(%bar1%)::foo(%bar2%)
-        parameters: [bar1, bar2]
-
-    # SETUP ======================================
-    h1:
-        class: stdClass
-        setup:
-            - $a(1)
-            - [@self, $a](1)
-            - @self::$a(1)
-            - foo(1)
-            - [@self, foo](1)
-            - @self::foo(1)
-
-    h2:
-        class: stdClass
-        setup:
-            - "$service->hello(?)"(@h1)
-            - "$service->hi(?)"(@container)
-            - "Tracy\\Bar::init(?)"(@self)
 ```
+
+#### Extension
 
 ```php
 $builder = $this->getContainerBuilder();
-
-// SIMPLE ================================
-
-$builder->addDefinition('a1')
-    ->setClass('TestClass');
-
-$builder->addDefinition('a2')
-    ->setClass('TestClass');
-
-$builder->addDefinition('a3')
-    ->setFactory('TestClass');
-
-// OPTIONS ===============================
-
-$builder->addDefinition('b1')
-    ->setClass('TestClass')
-    ->setAutowired(FALSE);
-
-$builder->addDefinition('b2')
-    ->setClass('TestClass')
-    ->setInject(TRUE);
-
-// ARGUMENTS =============================
-
-$builder->addDefinition('c1a')
-    ->setClass('TestClass2')
-    ->setArguments([1, 2]);
-
-$builder->addDefinition('c1b')
-    ->setClass('TestClass2', [1, 2]);
-
-$builder->addDefinition('c2a')
-    ->setClass('TestClass2')
-    ->setArguments([1]);
-
-$builder->addDefinition('c2b')
-    ->setClass('TestClass2', [1]);
-
-$builder->addDefinition('c3a')
-    ->setClass('TestClass2')
-    ->setArguments(['b' => 2]);
-
-$builder->addDefinition('c3b')
-    ->setClass('TestClass2', ['b' => 2]);
-
-// TAGS ==================================
-
-$builder->addDefinition('d1')
-    ->setClass('TestClass')
-    ->addTag('t1');
-
-$builder->addDefinition('d2')
-    ->setClass('TestClass')
-    ->setTags(['t1' => 'foobar']);
-
-// ARGUMENTS + PARAMETERS ================
-
-// $->setClass()->setArguments() <==> $->setFactory()
-
-$builder->addDefinition('e1')
-    ->setClass('TestClass2')
-    ->setArguments([$builder->literal('$a')])
-    ->setParameters(['a']);
-
-$builder->addDefinition('e2')
-    ->setClass('TestClass2', [$builder->literal('$a'), $builder->literal('$b')])
-    ->setParameters(['a' => NULL, 'b' => 1]);
-
-$builder->addDefinition('e3')
-    ->setClass('TestClass2')
-    ->setArguments([$builder->literal('$a')])
-    ->setParameters(['a']);
-
-$builder->addDefinition('e4')
-    ->setClass('TestClass2')
-    ->setArguments([NULL, $builder->literal('$a')])
-    ->setParameters(['a']);
-
-// IMPLEMENTS (INTERFACES) ===============
 
 $builder->addDefinition('f1')
     ->setImplement('ITestInterface');
@@ -308,8 +305,55 @@ $builder->addDefinition('f7')
     ->setImplement('ITestInterface3')
     ->setArguments([$builder->literal('$c')])
     ->setParameters(['c' => 1]);
+```
 
-// REFERENCES ============================
+### References
+
+#### Config
+
+```yaml
+services:
+    g1:
+        class: TestClass2
+        parameters: [a: NULL, b: NULL]
+        arguments: [%a%, %b%]
+
+    g2: @g1
+
+    g3:
+        factory: @g1
+        arguments: [1]
+
+    g4:
+        factory: @g1
+        parameters: [b]
+        arguments: [b: %b%]
+
+    g5a:
+        class: stdClass
+        factory: @g1::foo()
+
+    g5b:
+        class: stdClass
+        factory: @g1::foo
+        parameters: [bar]
+        arguments: [%bar%]
+
+    g5c:
+        class: stdClass
+        factory: @g1::foo(%bar%)
+        parameters: [bar]
+
+    g5d:
+        class: stdClass
+        factory: @g1(%bar1%)::foo(%bar2%)
+        parameters: [bar1, bar2]
+```
+
+#### Extension
+
+```php
+$builder = $this->getContainerBuilder();
 
 $builder->addDefinition('g1')
     ->setClass('TestClass2')
@@ -350,8 +394,36 @@ $builder->addDefinition('g5d')
             'foo'
         ], [$builder->literal('$bar2')])
     )->setParameters(['bar1', 'bar2']);
+```
 
-// REFERENCES ============================
+### Setup
+
+#### Config
+
+```yaml
+services:
+    h1:
+        class: stdClass
+        setup:
+            - $a(1)
+            - [@self, $a](1)
+            - @self::$a(1)
+            - foo(1)
+            - [@self, foo](1)
+            - @self::foo(1)
+
+    h2:
+        class: stdClass
+        setup:
+            - "$service->hello(?)"(@h1)
+            - "$service->hi(?)"(@container)
+            - "Tracy\\Bar::init(?)"(@self)
+```
+
+#### Extension
+
+```php
+$builder = $this->getContainerBuilder();
 
 $builder->addDefinition('h1')
     ->setClass('stdClass')
