@@ -179,7 +179,7 @@ final class SyntaxExtension extends CompilerExtension
                 ], [$builder->literal('$bar2')])
             )->setParameters(['bar1', 'bar2']);
 
-        // REFERENCES ============================
+        // SETUP =================================
 
         $builder->addDefinition('h1')
             ->setClass('stdClass')
