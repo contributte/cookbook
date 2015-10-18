@@ -26,7 +26,7 @@ See more in codes [config](https://github.com/FriendsOfNette/DI-syntax/blob/mast
 
 ## Simple
 
-### Config
+### Config ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/neon/syntax.neon#L3-L10))
 
 ```yaml
 services:
@@ -39,7 +39,7 @@ services:
         create: TestClass
 ```
 
-### Extension
+### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/extension/SyntaxExtension.php#L11-L22))
 
 ```php
 $builder = $this->getContainerBuilder();
@@ -54,9 +54,11 @@ $builder->addDefinition('a3')
     ->setFactory('TestClass');
 ```
 
+> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/container/Container_syntax.php#L102-L129)
+
 ## Options
 
-### Config
+### Config ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/neon/syntax.neon#L12-L19))
 
 ```yaml
 services:
@@ -69,7 +71,7 @@ services:
         inject: on
 ```
 
-### Extension
+### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/extension/SyntaxExtension.php#L24-L32))
 
 ```php
 $builder = $this->getContainerBuilder();
@@ -83,9 +85,11 @@ $builder->addDefinition('b2')
     ->setInject(TRUE);
 ```
 
+> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/container/Container_syntax.php#L132-L149)
+
 ## Arguments
 
-### Config
+### Config ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/neon/syntax.neon#L21-L38))
 
 ```yaml
 services:
@@ -108,7 +112,7 @@ services:
         arguments: [b: 2]
 ```
 
-### Extension
+### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/extension/SyntaxExtension.php#L34-L55))
 
 ```php
 $builder = $this->getContainerBuilder();
@@ -135,7 +139,9 @@ $builder->addDefinition('c3b')
     ->setClass('TestClass2', ['b' => 2]);
 ```
 
-## Tags
+> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/container/Container_syntax.php#L152-L209)
+
+## Tags ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/neon/syntax.neon#L40-L46))
 
 ### Config
 
@@ -149,7 +155,7 @@ services:
         tags: [t1: foobar]
 ```
 
-### Extension
+### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/extension/SyntaxExtension.php#L57-L65))
 
 ```php
 $builder = $this->getContainerBuilder();
@@ -163,9 +169,11 @@ $builder->addDefinition('d2')
     ->setTags(['t1' => 'foobar']);
 ```
 
+> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/container/Container_syntax.php#L221-L238)
+
 ## Arguments + parameters
 
-### Config
+### Config ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/neon/syntax.neon#L48-L65))
 
 ```yaml
 services:
@@ -188,7 +196,7 @@ services:
         parameters: [a]
 ```
 
-### Extension
+### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/extension/SyntaxExtension.php#L67-L88))
 
 ```php
 $builder = $this->getContainerBuilder();
@@ -215,9 +223,11 @@ $builder->addDefinition('e4')
     ->setParameters(['a']);
 ```
 
+> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/container/Container_syntax.php#L241-L278)
+
 ## Implements (interfaces)
 
-### Config
+### Config ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/neon/syntax.neon#L67-L110))
 
 ```yaml
 services:
@@ -266,7 +276,7 @@ services:
         arguments: [%c%]
 ```
 
-### Extension
+### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/extension/SyntaxExtension.php#L90-L138))
 
 ```php
 $builder = $this->getContainerBuilder();
@@ -320,9 +330,11 @@ $builder->addDefinition('f7')
     ->setParameters(['c' => 1]);
 ```
 
+> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/container/Container_syntax.php#L281-L389)
+
 ## References
 
-### Config
+### Config ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/neon/syntax.neon#L112-L147))
 
 ```yaml
 services:
@@ -363,7 +375,7 @@ services:
         parameters: [bar1, bar2]
 ```
 
-### Extension
+### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/extension/SyntaxExtension.php#L140-L180))
 
 ```php
 $builder = $this->getContainerBuilder();
@@ -409,9 +421,11 @@ $builder->addDefinition('g5d')
     )->setParameters(['bar1', 'bar2']);
 ```
 
+> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/container/Container_syntax.php#L392-L481)
+
 ## Setup
 
-### Config
+### Config ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/neon/syntax.neon#L149-L165))
 
 ```yaml
 services:
@@ -433,7 +447,7 @@ services:
             - "Tracy\\Bar::init(?)"(@self)
 ```
 
-### Extension
+### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/extension/SyntaxExtension.php#L182-L198))
 
 ```php
 $builder = $this->getContainerBuilder();
@@ -454,3 +468,5 @@ $builder->addDefinition('h2')
     ->addSetup(new Statement('Tracy\\Bar::init(?)', ['@self']));
 }
 ```
+
+> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/container/Container_syntax.php#L484-L510)
