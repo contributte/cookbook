@@ -7,13 +7,26 @@
 * Config (NEON)
 * Extension (PHP)
 
-## Overview
+## Table of content
+
+Different syntaxes for config (neon-way) and extesion (php-way).
+
+* [Simple](#simple)
+* [Options](#options)
+* [Arguments](#arguments)
+* [Tags](#tags)
+* [Arguments + parameters](#arguments--parameters)
+* [Implements (interfaces)](#implements-interfaces)
+* [References](#references)
+* [Setup](#setup)
+
+# Overview
 
 See more in codes [config](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/neon/syntax.neon), [extension](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/extension/SyntaxExtension.php).
 
-### Simple
+## Simple
 
-#### Config
+### Config
 
 ```yaml
 services:
@@ -26,7 +39,7 @@ services:
         create: TestClass
 ```
 
-#### Extension
+### Extension
 
 ```php
 $builder = $this->getContainerBuilder();
@@ -41,9 +54,9 @@ $builder->addDefinition('a3')
     ->setFactory('TestClass');
 ```
 
-### Options
+## Options
 
-#### Config
+### Config
 
 ```yaml
 services:
@@ -56,7 +69,7 @@ services:
         inject: on
 ```
 
-#### Extension
+### Extension
 
 ```php
 $builder = $this->getContainerBuilder();
@@ -70,9 +83,9 @@ $builder->addDefinition('b2')
     ->setInject(TRUE);
 ```
 
-### Arguments
+## Arguments
 
-#### Config
+### Config
 
 ```yaml
 services:
@@ -95,7 +108,7 @@ services:
         arguments: [b: 2]
 ```
 
-#### Extension
+### Extension
 
 ```php
 $builder = $this->getContainerBuilder();
@@ -122,9 +135,9 @@ $builder->addDefinition('c3b')
     ->setClass('TestClass2', ['b' => 2]);
 ```
 
-### Tags
+## Tags
 
-#### Config
+### Config
 
 ```yaml
 services:
@@ -136,7 +149,7 @@ services:
         tags: [t1: foobar]
 ```
 
-#### Extension
+### Extension
 
 ```php
 $builder = $this->getContainerBuilder();
@@ -150,9 +163,9 @@ $builder->addDefinition('d2')
     ->setTags(['t1' => 'foobar']);
 ```
 
-### Arguments + parameters
+## Arguments + parameters
 
-#### Config
+### Config
 
 ```yaml
 services:
@@ -175,7 +188,7 @@ services:
         parameters: [a]
 ```
 
-#### Extension
+### Extension
 
 ```php
 $builder = $this->getContainerBuilder();
@@ -202,9 +215,9 @@ $builder->addDefinition('e4')
     ->setParameters(['a']);
 ```
 
-### Implements (interfaces)
+## Implements (interfaces)
 
-#### Config
+### Config
 
 ```yaml
 services:
@@ -253,7 +266,7 @@ services:
         arguments: [%c%]
 ```
 
-#### Extension
+### Extension
 
 ```php
 $builder = $this->getContainerBuilder();
@@ -307,9 +320,9 @@ $builder->addDefinition('f7')
     ->setParameters(['c' => 1]);
 ```
 
-### References
+## References
 
-#### Config
+### Config
 
 ```yaml
 services:
@@ -350,7 +363,7 @@ services:
         parameters: [bar1, bar2]
 ```
 
-#### Extension
+### Extension
 
 ```php
 $builder = $this->getContainerBuilder();
@@ -396,9 +409,9 @@ $builder->addDefinition('g5d')
     )->setParameters(['bar1', 'bar2']);
 ```
 
-### Setup
+## Setup
 
-#### Config
+### Config
 
 ```yaml
 services:
@@ -420,7 +433,7 @@ services:
             - "Tracy\\Bar::init(?)"(@self)
 ```
 
-#### Extension
+### Extension
 
 ```php
 $builder = $this->getContainerBuilder();
