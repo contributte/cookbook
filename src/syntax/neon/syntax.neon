@@ -162,4 +162,4 @@ services:
         setup:
             - "$service->hello(?)"(@h1)
             - "$service->hi(?)"(@container)
-            - "Tracy\\Bar::init(?)"(@self)
+            - "My\\Tracy\\Bar::init(?)"(@self)

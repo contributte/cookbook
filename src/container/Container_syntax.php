@@ -505,13 +505,15 @@ class Container_syntax extends Nette\DI\Container
 		$service = new stdClass;
 		$service->hello($this->getService('h1'));
 		$service->hi($this);
-		Tracy\Bar::init($service);
+		My\Tracy\Bar::init($service);
 		return $service;
 	}
 
 
 	public function initialize()
 	{
+		My\Tracy\Bar::init(1);
+		My\Tracy\Bar::init(1, 2);
 	}
 
 }

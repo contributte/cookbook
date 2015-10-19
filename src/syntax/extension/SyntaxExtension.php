@@ -2,6 +2,7 @@
 
 use Nette\DI\CompilerExtension;
 use Nette\DI\Statement;
+use Nette\PhpGenerator\ClassType;
 
 final class SyntaxExtension extends CompilerExtension
 {
@@ -194,7 +195,19 @@ final class SyntaxExtension extends CompilerExtension
             ->setClass('stdClass')
             ->addSetup(new Statement('$service->hello(?)', ['@h1']))
             ->addSetup(new Statement('$service->hi(?)', ['@container']))
-            ->addSetup(new Statement('Tracy\\Bar::init(?)', ['@self']));
+            ->addSetup(new Statement('My\\Tracy\\Bar::init(?)', ['@self']));
     }
+
+    /**
+     * @param ClassType $class
+     */
+    public function afterCompile(ClassType $class)
+    {
+        $initialize = $class->getMethod('initialize');
+
+        $initialize->addBody('My\\Tracy\\Bar::init(?);', [1, 2]);
+        $initialize->addBody('My\\Tracy\\Bar::init(?*);', [[1, 2]]);
+    }
+
 
 }
