@@ -196,6 +196,11 @@ final class SyntaxExtension extends CompilerExtension
             ->addSetup(new Statement('$service->hello(?)', ['@h1']))
             ->addSetup(new Statement('$service->hi(?)', ['@container']))
             ->addSetup(new Statement('My\\Tracy\\Bar::init(?)', ['@self']));
+
+        $builder->addDefinition('h3')
+            ->setClass('stdClass')
+            ->addSetup(new Statement('$service->onSuccess[] = ?', [['@h1', 'method']]))
+            ->addSetup(new Statement('?->onSuccess[] = ?', ['@h1', '@h2']));
     }
 
     /**
@@ -208,6 +213,5 @@ final class SyntaxExtension extends CompilerExtension
         $initialize->addBody('My\\Tracy\\Bar::init(?);', [1, 2]);
         $initialize->addBody('My\\Tracy\\Bar::init(?*);', [[1, 2]]);
     }
-
 
 }

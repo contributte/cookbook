@@ -163,3 +163,9 @@ services:
             - "$service->hello(?)"(@h1)
             - "$service->hi(?)"(@container)
             - "My\\Tracy\\Bar::init(?)"(@self)
+
+    h3:
+        class: stdClass
+        setup:
+            - "$service->onSuccess[] = ?"([@h1, method])
+            - "?->onSuccess[] = ?"(@h1, @h2)

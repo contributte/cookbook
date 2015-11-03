@@ -445,6 +445,12 @@ services:
             - "$service->hello(?)"(@h1)
             - "$service->hi(?)"(@container)
             - "Tracy\\Bar::init(?)"(@self)
+
+    h3:
+        class: stdClass
+        setup:
+            - "$service->onSuccess[] = ?"([@h1, method])
+            - "?->onSuccess[] = ?"(@h1, @h2)
 ```
 
 ### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/extension/SyntaxExtension.php#L182-L198))
@@ -466,7 +472,11 @@ $builder->addDefinition('h2')
     ->addSetup(new Statement('$service->hello(?)', ['@h1']))
     ->addSetup(new Statement('$service->hi(?)', ['@container']))
     ->addSetup(new Statement('Tracy\\Bar::init(?)', ['@self']));
-}
+
+$builder->addDefinition('h3')
+    ->setClass('stdClass')
+    ->addSetup(new Statement('$service->onSuccess[] = ?', [['@h1', 'method']]))
+    ->addSetup(new Statement('?->onSuccess[] = ?', ['@h1', '@h2']));
 ```
 
 > #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/container/Container_syntax.php#L484-L510)

@@ -38,7 +38,15 @@ class Container_syntax extends Nette\DI\Container
 			'ITestInterface3' => array(1 => array('f4a', 'f4b', 'f7')),
 			'ITestInterfaceGet' => array(1 => array('f5')),
 			'stdClass' => array(
-				1 => array('g5a', 'g5b', 'g5c', 'g5d', 'h1', 'h2'),
+				1 => array(
+					'g5a',
+					'g5b',
+					'g5c',
+					'g5d',
+					'h1',
+					'h2',
+					'h3',
+				),
 			),
 			'Nette\Object' => array(1 => array('container')),
 			'Nette\DI\Container' => array(1 => array('container')),
@@ -84,6 +92,7 @@ class Container_syntax extends Nette\DI\Container
 			'g5d' => 'stdClass',
 			'h1' => 'stdClass',
 			'h2' => 'stdClass',
+			'h3' => 'stdClass',
 		),
 		'tags' => array(
 			'inject' => array('b2' => TRUE),
@@ -506,6 +515,18 @@ class Container_syntax extends Nette\DI\Container
 		$service->hello($this->getService('h1'));
 		$service->hi($this);
 		My\Tracy\Bar::init($service);
+		return $service;
+	}
+
+
+	/**
+	 * @return stdClass
+	 */
+	public function createServiceH3()
+	{
+		$service = new stdClass;
+		$service->onSuccess[] = array($this->getService('h1'), 'method');
+		$this->getService('h1')->onSuccess[] = $this->getService('h2');
 		return $service;
 	}
 
