@@ -14,7 +14,7 @@ Tester\Environment::setup();
 date_default_timezone_set('Europe/Prague');
 
 // create temporary directory
-define('TEMP_DIR', __DIR__ . '/tmp/');
+define('TEMP_DIR', __DIR__ . '/tmp/' . getmypid());
 define('SRC_DIR', __DIR__ . '/../src');
 @mkdir(dirname(TEMP_DIR)); // @ - directory may already exist
 Tester\Helpers::purge(TEMP_DIR);
