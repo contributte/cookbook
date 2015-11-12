@@ -39,7 +39,7 @@ services:
         create: TestClass
 ```
 
-### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/extension/SyntaxExtension.php#L11-L22))
+### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/extension/SyntaxExtension.php#L14-L23))
 
 ```php
 $builder = $this->getContainerBuilder();
@@ -54,7 +54,7 @@ $builder->addDefinition('a3')
     ->setFactory('TestClass');
 ```
 
-> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/container/Container_syntax.php#L102-L129)
+> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/container/Container_syntax.php#L111-L138)
 
 ## Options
 
@@ -71,7 +71,7 @@ services:
         inject: on
 ```
 
-### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/extension/SyntaxExtension.php#L24-L32))
+### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/extension/SyntaxExtension.php#L25-L33))
 
 ```php
 $builder = $this->getContainerBuilder();
@@ -85,7 +85,7 @@ $builder->addDefinition('b2')
     ->setInject(TRUE);
 ```
 
-> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/container/Container_syntax.php#L132-L149)
+> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/container/Container_syntax.php#L141-L158)
 
 ## Arguments
 
@@ -112,7 +112,7 @@ services:
         arguments: [b: 2]
 ```
 
-### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/extension/SyntaxExtension.php#L34-L55))
+### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/extension/SyntaxExtension.php#L35-L56))
 
 ```php
 $builder = $this->getContainerBuilder();
@@ -139,11 +139,11 @@ $builder->addDefinition('c3b')
     ->setClass('TestClass2', ['b' => 2]);
 ```
 
-> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/container/Container_syntax.php#L152-L209)
+> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/container/Container_syntax.php#L161-L218)
 
-## Tags ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/neon/syntax.neon#L40-L46))
+## Tags
 
-### Config
+### Config ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/neon/syntax.neon#L40-L46))
 
 ```yaml
 services:
@@ -155,7 +155,7 @@ services:
         tags: [t1: foobar]
 ```
 
-### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/extension/SyntaxExtension.php#L57-L65))
+### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/extension/SyntaxExtension.php#L58-L66))
 
 ```php
 $builder = $this->getContainerBuilder();
@@ -169,7 +169,7 @@ $builder->addDefinition('d2')
     ->setTags(['t1' => 'foobar']);
 ```
 
-> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/container/Container_syntax.php#L221-L238)
+> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/container/Container_syntax.php#L230-L247)
 
 ## Arguments + parameters
 
@@ -196,7 +196,7 @@ services:
         parameters: [a]
 ```
 
-### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/extension/SyntaxExtension.php#L67-L88))
+### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/extension/SyntaxExtension.php#L68-L89))
 
 ```php
 $builder = $this->getContainerBuilder();
@@ -223,7 +223,7 @@ $builder->addDefinition('e4')
     ->setParameters(['a']);
 ```
 
-> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/container/Container_syntax.php#L241-L278)
+> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/container/Container_syntax.php#L250-L287)
 
 ## Implements (interfaces)
 
@@ -276,7 +276,7 @@ services:
         arguments: [%c%]
 ```
 
-### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/extension/SyntaxExtension.php#L90-L138))
+### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/extension/SyntaxExtension.php#L91-L139))
 
 ```php
 $builder = $this->getContainerBuilder();
@@ -330,7 +330,7 @@ $builder->addDefinition('f7')
     ->setParameters(['c' => 1]);
 ```
 
-> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/container/Container_syntax.php#L281-L389)
+> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/container/Container_syntax.php#L290-L398)
 
 ## References
 
@@ -375,7 +375,7 @@ services:
         parameters: [bar1, bar2]
 ```
 
-### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/extension/SyntaxExtension.php#L140-L180))
+### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/extension/SyntaxExtension.php#L141-L181))
 
 ```php
 $builder = $this->getContainerBuilder();
@@ -421,11 +421,11 @@ $builder->addDefinition('g5d')
     )->setParameters(['bar1', 'bar2']);
 ```
 
-> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/container/Container_syntax.php#L392-L481)
+> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/container/Container_syntax.php#L401-L490)
 
 ## Setup
 
-### Config ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/neon/syntax.neon#L149-L165))
+### Config ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/neon/syntax.neon#L149-L171))
 
 ```yaml
 services:
@@ -453,7 +453,7 @@ services:
             - "?->onSuccess[] = ?"(@h1, @h2)
 ```
 
-### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/extension/SyntaxExtension.php#L182-L198))
+### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/syntax/extension/SyntaxExtension.php#L183-L203))
 
 ```php
 $builder = $this->getContainerBuilder();
@@ -479,4 +479,4 @@ $builder->addDefinition('h3')
     ->addSetup(new Statement('?->onSuccess[] = ?', ['@h1', '@h2']));
 ```
 
-> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/container/Container_syntax.php#L484-L510)
+> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/src/container/Container_syntax.php#L493-L531)
