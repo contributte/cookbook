@@ -10,13 +10,13 @@ before_script:
     - composer global require "hirak/prestissimo:^0.3"
 
     # Nette 2.3
-    - composer -d 2.3 install --no-interaction -o
+    - composer install -d 2.3 --no-interaction -o
 
     # Nette 2.4
-    - composer -d 2.4 install --no-interaction -o
+    - composer install -d 2.4 --no-interaction -o
 
     # Nette 3.0
-    - composer -d 3.0 install --no-interaction -o
+    - composer install -d 3.0 --no-interaction -o
 
 script:
     # Nette 2.3
