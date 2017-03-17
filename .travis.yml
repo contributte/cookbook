@@ -5,14 +5,17 @@ php:
 sudo: false
 
 before_script:
+    # Composer stuff
+    - composer self-update
+    - composer global require "hirak/prestissimo:^0.3"
+
     # Nette 2.3
-    - composer -d 2.3 self-update
     - composer -d 2.3 install --no-interaction -o
+
     # Nette 2.4
-    - composer -d 2.4 self-update
     - composer -d 2.4 install --no-interaction -o
+
     # Nette 3.0
-    - composer -d 3.0 self-update
     - composer -d 3.0 install --no-interaction -o
 
 script:
