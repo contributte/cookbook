@@ -1,31 +1,33 @@
 language: php
 php:
-    - 5.5
-    - 5.6
-    - 7.0
-    - hhvm
-    - hhvm-nightly
+    - 7.1
 
-matrix:
-    allow_failures:
-        - php: hhvm
-        - php: hhvm-nightly
+sudo: false
 
 before_script:
-    # Update Composer
-    - composer self-update
-
-    # Install Nette Tester
-    - composer install --no-interaction --prefer-source
+    # Nette 2.3
+    - composer -d 2.3 self-update
+    - composer -d 2.3 install --no-interaction -o
+    # Nette 2.4
+    - composer -d 2.4 self-update
+    - composer -d 2.4 install --no-interaction -o
+    # Nette 3.0
+    - composer -d 3.0 self-update
+    - composer -d 3.0 install --no-interaction -o
 
 script:
-    - vendor/bin/tester tests/cases -s -p php
+    # Nette 2.3
+    - 2.3/vendor/bin/tester 2.3/tests/cases -s -j 40 -p php
+
+    # Nette 2.4
+    - 2.4/vendor/bin/tester 2.4/tests/cases -s -j 40 -p php
+
+    # Nette 3.0
+    - 3.0/vendor/bin/tester 3.0/tests/cases -s -j 40 -p php
 
 after_failure:
     # Print *.actual content
-    - 'for i in $(find tests -name \*.actual); do echo "--- $i"; cat $i; echo; echo; done'
-
-sudo: false
+    - 'for i in $(find . -name \*.actual); do echo "--- $i"; cat $i; echo; echo; done'
 
 cache:
     directories:
