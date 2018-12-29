@@ -11,6 +11,3 @@ if (@!include __DIR__ . '/../vendor/autoload.php') {
 Environment::setupTester();
 Environment::setupTimezone();
 Environment::setupVariables(__DIR__);
-
-// Ignore E_USER_DEPRECATED: Replace deprecated Nette\Object with trait Nette\SmartObject
-error_reporting(~E_USER_DEPRECATED);

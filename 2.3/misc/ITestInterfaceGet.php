@@ -3,8 +3,8 @@
 interface ITestInterfaceGet
 {
 
-/**
-     * @return TestClass2
-     */
-    function get();
+	/**
+	 * @return TestClass2
+	 */
+	function get();
 }

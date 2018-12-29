@@ -1,12 +1,17 @@
 {
   "require-dev": {
-    "php": ">=7.0",
-    "nette/di": "^2.3.0",
-    "nette/tester": "~1.7.0"
+    "php": "<=7.2",
+    "nette/di": "~2.3.0",
+    "ninjify/nunjuck": "~0.2.0"
   },
   "autoload-dev": {
     "classmap": [
       "./"
+    ]
+  },
+  "scripts": {
+    "tests": [
+      "tester -s -p php --colors 1 -C tests/cases"
     ]
   }
 }

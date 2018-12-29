@@ -12,5 +12,5 @@ Environment::setupTester();
 Environment::setupTimezone();
 Environment::setupVariables(__DIR__);
 
-// Ignore E_USER_DEPRECATED: Replace deprecated Nette\Object with trait Nette\SmartObject
+// Ignore E_USER_DEPRECATED: Some DI stuff
 error_reporting(~E_USER_DEPRECATED);
