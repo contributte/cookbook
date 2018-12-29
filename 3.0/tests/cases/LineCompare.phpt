@@ -15,7 +15,7 @@ class CompareLoader extends ContainerLoader
 		parent::__construct(TEMP_DIR, true);
 	}
 
-	public function generate($class, $generator)
+	public function generate(string $class, callable $generator): array
 	{
 		return parent::generate($class, $generator);
 	}
@@ -26,17 +26,17 @@ class LineCompareTest extends TestCase
 
 	public function testCompareLines()
 	{
-		// Create container based on extension
 		$loader = new CompareLoader();
+
+		// Create container based on extension
 		$container1 = $loader->generate('Container', function (Compiler $compiler) {
 			$compiler->addExtension('test', new SyntaxExtension());
-		});
+		}, '1');
 
 		// Create container based on neon config
-		$loader = new CompareLoader();
 		$container2 = $loader->generate('Container', function (Compiler $compiler) {
 			$compiler->loadConfig(__DIR__ . '/../../syntax/neon/syntax.neon');
-		});
+		}, '2');
 
 		Assert::type('array', $container1);
 		Assert::type('array', $container2);

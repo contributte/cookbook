@@ -1,10 +1,11 @@
 <?php
+
 class Container_syntax extends Nette\DI\Container
 {
-	protected $meta = array(
-		'types' => array(
-			'TestClass' => array(
-				1 => array(
+	protected $meta = [
+		'types' => [
+			'TestClass' => [
+				1 => [
 					'a1',
 					'a2',
 					'a3',
@@ -12,11 +13,11 @@ class Container_syntax extends Nette\DI\Container
 					'd1',
 					'd2',
 					'f6s',
-				),
-				0 => array('b1'),
-			),
-			'TestClass2' => array(
-				1 => array(
+				],
+				0 => ['b1'],
+			],
+			'TestClass2' => [
+				1 => [
 					'c1a',
 					'c1b',
 					'c2a',
@@ -30,15 +31,15 @@ class Container_syntax extends Nette\DI\Container
 					'f5s',
 					'f7s',
 					'g1',
-				),
-				0 => array('g2', 'g3', 'g4'),
-			),
-			'ITestInterface' => array(1 => array('f1', 'f2', 'f6')),
-			'ITestInterface2' => array(1 => array('f3a', 'f3b')),
-			'ITestInterface3' => array(1 => array('f4a', 'f4b', 'f7')),
-			'ITestInterfaceGet' => array(1 => array('f5')),
-			'stdClass' => array(
-				1 => array(
+				],
+				0 => ['g2', 'g3', 'g4'],
+			],
+			'ITestInterface' => [1 => ['f1', 'f2', 'f6']],
+			'ITestInterface2' => [1 => ['f3a', 'f3b']],
+			'ITestInterface3' => [1 => ['f4a', 'f4b', 'f7']],
+			'ITestInterfaceGet' => [1 => ['f5']],
+			'stdClass' => [
+				1 => [
 					'g5a',
 					'g5b',
 					'g5c',
@@ -46,12 +47,12 @@ class Container_syntax extends Nette\DI\Container
 					'h1',
 					'h2',
 					'h3',
-				),
-			),
-			'Nette\Object' => array(1 => array('container')),
-			'Nette\DI\Container' => array(1 => array('container')),
-		),
-		'services' => array(
+				],
+			],
+			'Nette\Object' => [1 => ['container']],
+			'Nette\DI\Container' => [1 => ['container']],
+		],
+		'services' => [
 			'a1' => 'TestClass',
 			'a2' => 'TestClass',
 			'a3' => 'TestClass',
@@ -93,18 +94,18 @@ class Container_syntax extends Nette\DI\Container
 			'h1' => 'stdClass',
 			'h2' => 'stdClass',
 			'h3' => 'stdClass',
-		),
-		'tags' => array(
-			'inject' => array('b2' => TRUE),
-			't1' => array('d1' => TRUE, 'd2' => 'foobar'),
-		),
-		'aliases' => array(),
-	);
+		],
+		'tags' => [
+			'inject' => ['b2' => true],
+			't1' => ['d1' => true, 'd2' => 'foobar'],
+		],
+		'aliases' => [],
+	];
 
 
 	public function __construct()
 	{
-		parent::__construct(array());
+		parent::__construct([]);
 	}
 
 
@@ -114,6 +115,7 @@ class Container_syntax extends Nette\DI\Container
 	public function createServiceA1()
 	{
 		$service = new TestClass;
+
 		return $service;
 	}
 
@@ -124,6 +126,7 @@ class Container_syntax extends Nette\DI\Container
 	public function createServiceA2()
 	{
 		$service = new TestClass;
+
 		return $service;
 	}
 
@@ -134,6 +137,7 @@ class Container_syntax extends Nette\DI\Container
 	public function createServiceA3()
 	{
 		$service = new TestClass;
+
 		return $service;
 	}
 
@@ -144,6 +148,7 @@ class Container_syntax extends Nette\DI\Container
 	public function createServiceB1()
 	{
 		$service = new TestClass;
+
 		return $service;
 	}
 
@@ -154,6 +159,7 @@ class Container_syntax extends Nette\DI\Container
 	public function createServiceB2()
 	{
 		$service = new TestClass;
+
 		return $service;
 	}
 
@@ -164,6 +170,7 @@ class Container_syntax extends Nette\DI\Container
 	public function createServiceC1a()
 	{
 		$service = new TestClass2(1, 2);
+
 		return $service;
 	}
 
@@ -174,6 +181,7 @@ class Container_syntax extends Nette\DI\Container
 	public function createServiceC1b()
 	{
 		$service = new TestClass2(1, 2);
+
 		return $service;
 	}
 
@@ -184,6 +192,7 @@ class Container_syntax extends Nette\DI\Container
 	public function createServiceC2a()
 	{
 		$service = new TestClass2(1);
+
 		return $service;
 	}
 
@@ -194,6 +203,7 @@ class Container_syntax extends Nette\DI\Container
 	public function createServiceC2b()
 	{
 		$service = new TestClass2(1);
+
 		return $service;
 	}
 
@@ -203,7 +213,8 @@ class Container_syntax extends Nette\DI\Container
 	 */
 	public function createServiceC3a()
 	{
-		$service = new TestClass2(NULL, 2);
+		$service = new TestClass2(null, 2);
+
 		return $service;
 	}
 
@@ -213,7 +224,8 @@ class Container_syntax extends Nette\DI\Container
 	 */
 	public function createServiceC3b()
 	{
-		$service = new TestClass2(NULL, 2);
+		$service = new TestClass2(null, 2);
+
 		return $service;
 	}
 
@@ -233,6 +245,7 @@ class Container_syntax extends Nette\DI\Container
 	public function createServiceD1()
 	{
 		$service = new TestClass;
+
 		return $service;
 	}
 
@@ -243,6 +256,7 @@ class Container_syntax extends Nette\DI\Container
 	public function createServiceD2()
 	{
 		$service = new TestClass;
+
 		return $service;
 	}
 
@@ -253,6 +267,7 @@ class Container_syntax extends Nette\DI\Container
 	public function createServiceE1($a)
 	{
 		$service = new TestClass2($a);
+
 		return $service;
 	}
 
@@ -260,9 +275,10 @@ class Container_syntax extends Nette\DI\Container
 	/**
 	 * @return TestClass2
 	 */
-	public function createServiceE2($a = NULL, $b = 1)
+	public function createServiceE2($a = null, $b = 1)
 	{
 		$service = new TestClass2($a, $b);
+
 		return $service;
 	}
 
@@ -273,6 +289,7 @@ class Container_syntax extends Nette\DI\Container
 	public function createServiceE3($a)
 	{
 		$service = new TestClass2($a);
+
 		return $service;
 	}
 
@@ -282,7 +299,8 @@ class Container_syntax extends Nette\DI\Container
 	 */
 	public function createServiceE4($a)
 	{
-		$service = new TestClass2(NULL, $a);
+		$service = new TestClass2(null, $a);
+
 		return $service;
 	}
 
@@ -356,6 +374,7 @@ class Container_syntax extends Nette\DI\Container
 	public function createServiceF5s()
 	{
 		$service = new TestClass2;
+
 		return $service;
 	}
 
@@ -375,6 +394,7 @@ class Container_syntax extends Nette\DI\Container
 	public function createServiceF6s()
 	{
 		$service = new TestClass;
+
 		return $service;
 	}
 
@@ -394,6 +414,7 @@ class Container_syntax extends Nette\DI\Container
 	public function createServiceF7s()
 	{
 		$service = new TestClass2;
+
 		return $service;
 	}
 
@@ -401,9 +422,10 @@ class Container_syntax extends Nette\DI\Container
 	/**
 	 * @return TestClass2
 	 */
-	public function createServiceG1($a = NULL, $b = NULL)
+	public function createServiceG1($a = null, $b = null)
 	{
 		$service = new TestClass2($a, $b);
+
 		return $service;
 	}
 
@@ -414,6 +436,7 @@ class Container_syntax extends Nette\DI\Container
 	public function createServiceG2()
 	{
 		$service = $this->getService('g1');
+
 		return $service;
 	}
 
@@ -424,6 +447,7 @@ class Container_syntax extends Nette\DI\Container
 	public function createServiceG3()
 	{
 		$service = $this->createServiceG1(1);
+
 		return $service;
 	}
 
@@ -433,7 +457,8 @@ class Container_syntax extends Nette\DI\Container
 	 */
 	public function createServiceG4($b)
 	{
-		$service = $this->createServiceG1(NULL, $b);
+		$service = $this->createServiceG1(null, $b);
+
 		return $service;
 	}
 
@@ -447,6 +472,7 @@ class Container_syntax extends Nette\DI\Container
 		if (!$service instanceof stdClass) {
 			throw new Nette\UnexpectedValueException('Unable to create service \'g5a\', value returned by factory is not stdClass type.');
 		}
+
 		return $service;
 	}
 
@@ -460,6 +486,7 @@ class Container_syntax extends Nette\DI\Container
 		if (!$service instanceof stdClass) {
 			throw new Nette\UnexpectedValueException('Unable to create service \'g5b\', value returned by factory is not stdClass type.');
 		}
+
 		return $service;
 	}
 
@@ -473,6 +500,7 @@ class Container_syntax extends Nette\DI\Container
 		if (!$service instanceof stdClass) {
 			throw new Nette\UnexpectedValueException('Unable to create service \'g5c\', value returned by factory is not stdClass type.');
 		}
+
 		return $service;
 	}
 
@@ -486,6 +514,7 @@ class Container_syntax extends Nette\DI\Container
 		if (!$service instanceof stdClass) {
 			throw new Nette\UnexpectedValueException('Unable to create service \'g5d\', value returned by factory is not stdClass type.');
 		}
+
 		return $service;
 	}
 
@@ -502,6 +531,7 @@ class Container_syntax extends Nette\DI\Container
 		$service->foo(1);
 		$service->foo(1);
 		$service->foo(1);
+
 		return $service;
 	}
 
@@ -515,6 +545,7 @@ class Container_syntax extends Nette\DI\Container
 		$service->hello($this->getService('h1'));
 		$service->hi($this);
 		My\Tracy\Bar::init($service);
+
 		return $service;
 	}
 
@@ -525,8 +556,9 @@ class Container_syntax extends Nette\DI\Container
 	public function createServiceH3()
 	{
 		$service = new stdClass;
-		$service->onSuccess[] = array($this->getService('h1'), 'method');
+		$service->onSuccess[] = [$this->getService('h1'), 'method'];
 		$this->getService('h1')->onSuccess[] = $this->getService('h2');
+
 		return $service;
 	}
 
@@ -538,7 +570,6 @@ class Container_syntax extends Nette\DI\Container
 	}
 
 }
-
 
 
 final class Container_syntax_ITestInterfaceImpl_f1 implements ITestInterface
@@ -555,11 +586,11 @@ final class Container_syntax_ITestInterfaceImpl_f1 implements ITestInterface
 	public function create()
 	{
 		$service = new TestClass;
+
 		return $service;
 	}
 
 }
-
 
 
 final class Container_syntax_ITestInterfaceImpl_f2 implements ITestInterface
@@ -576,11 +607,11 @@ final class Container_syntax_ITestInterfaceImpl_f2 implements ITestInterface
 	public function create()
 	{
 		$service = new stdClass;
+
 		return $service;
 	}
 
 }
-
 
 
 final class Container_syntax_ITestInterface2Impl_f3a implements ITestInterface2
@@ -597,11 +628,11 @@ final class Container_syntax_ITestInterface2Impl_f3a implements ITestInterface2
 	public function create()
 	{
 		$service = new TestClass2(1, 2);
+
 		return $service;
 	}
 
 }
-
 
 
 final class Container_syntax_ITestInterface2Impl_f3b implements ITestInterface2
@@ -617,12 +648,12 @@ final class Container_syntax_ITestInterface2Impl_f3b implements ITestInterface2
 
 	public function create()
 	{
-		$service = new TestClass2(NULL, 2);
+		$service = new TestClass2(null, 2);
+
 		return $service;
 	}
 
 }
-
 
 
 final class Container_syntax_ITestInterface3Impl_f4a implements ITestInterface3
@@ -639,11 +670,11 @@ final class Container_syntax_ITestInterface3Impl_f4a implements ITestInterface3
 	public function create($c)
 	{
 		$service = new TestClass2($c);
+
 		return $service;
 	}
 
 }
-
 
 
 final class Container_syntax_ITestInterface3Impl_f4b implements ITestInterface3
@@ -660,11 +691,11 @@ final class Container_syntax_ITestInterface3Impl_f4b implements ITestInterface3
 	public function create($c)
 	{
 		$service = new TestClass2(1);
+
 		return $service;
 	}
 
 }
-
 
 
 final class Container_syntax_ITestInterfaceGetImpl_f5 implements ITestInterfaceGet
@@ -681,11 +712,11 @@ final class Container_syntax_ITestInterfaceGetImpl_f5 implements ITestInterfaceG
 	public function get()
 	{
 		$service = $this->container->getService('f5s');
+
 		return $service;
 	}
 
 }
-
 
 
 final class Container_syntax_ITestInterfaceImpl_f6 implements ITestInterface
@@ -702,11 +733,11 @@ final class Container_syntax_ITestInterfaceImpl_f6 implements ITestInterface
 	public function create()
 	{
 		$service = $this->container->createServiceF6s();
+
 		return $service;
 	}
 
 }
-
 
 
 final class Container_syntax_ITestInterface3Impl_f7 implements ITestInterface3
@@ -723,6 +754,7 @@ final class Container_syntax_ITestInterface3Impl_f7 implements ITestInterface3
 	public function create($c = 1)
 	{
 		$service = $this->container->createServiceF7s($c);
+
 		return $service;
 	}
 

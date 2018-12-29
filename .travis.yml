@@ -1,37 +1,56 @@
 language: php
-php:
-    - 7.1
+
+after_failure:
+  # Print *.actual content
+  - for i in $(find tests -name \*.actual); do echo "--- $i"; cat $i; echo; echo; done
+
+jobs:
+  include:
+    - env: title="PHP 5.6"
+      php: 5.6
+      install:
+        - composer install -d 2.3 --no-interaction -o
+      script:
+        - composer run-script -d 2.3 tests
+
+    - env: title="PHP 7.0"
+      php: 7.0
+      install:
+        - composer install -d 2.3 --no-interaction -o
+      script:
+        - composer run-script -d 2.3 tests
+
+    - env: title="PHP 7.1"
+      php: 7.1
+      install:
+        - composer install -d 2.3 --no-interaction -o
+        - composer install -d 2.4 --no-interaction -o
+        - composer install -d 3.0 --no-interaction -o
+      script:
+        - composer run-script -d 2.3 tests
+        - composer run-script -d 2.4 tests
+        - composer run-script -d 3.0 tests
+
+    - env: title="PHP 7.2"
+      php: 7.2
+      install:
+        - composer install -d 2.4 --no-interaction -o
+        - composer install -d 3.0 --no-interaction -o
+      script:
+        - composer run-script -d 2.4 tests
+        - composer run-script -d 3.0 tests
+
+    - env: title="PHP 7.3"
+      php: 7.3
+      install:
+        - composer install -d 2.4 --no-interaction -o
+        - composer install -d 3.0 --no-interaction -o
+      script:
+        - composer run-script -d 2.4 tests
+        - composer run-script -d 3.0 tests
 
 sudo: false
 
-before_script:
-    # Composer stuff
-    - composer self-update
-    - composer global require "hirak/prestissimo:^0.3"
-
-    # Nette 2.3
-    - composer install -d 2.3 --no-interaction -o
-
-    # Nette 2.4
-    - composer install -d 2.4 --no-interaction -o
-
-    # Nette 3.0
-    - composer install -d 3.0 --no-interaction -o
-
-script:
-    # Nette 2.3
-    - 2.3/vendor/bin/tester 2.3/tests/cases -s -j 40 -p php
-
-    # Nette 2.4
-    - 2.4/vendor/bin/tester 2.4/tests/cases -s -j 40 -p php
-
-    # Nette 3.0
-    - 3.0/vendor/bin/tester 3.0/tests/cases -s -j 40 -p php
-
-after_failure:
-    # Print *.actual content
-    - 'for i in $(find . -name \*.actual); do echo "--- $i"; cat $i; echo; echo; done'
-
 cache:
-    directories:
-        - $HOME/.composer/cache
+  directories:
+    - $HOME/.composer/cache

@@ -10,6 +10,7 @@
 * Configuration (https://doc.nette.org/en/2.4/configuring)
 * Dependency injection (https://doc.nette.org/en/2.4/dependency-injection)
 * Define extensions (https://doc.nette.org/en/2.4/di-extensions)
+* Built-in extensions (https://doc.nette.org/cs/2.4/di-builtin-extensions)
 * DI usage (https://doc.nette.org/en/2.4/di-usage)
 
 ## Table of content
@@ -27,11 +28,11 @@ Different syntaxes for config (neon-way) and extesion (php-way).
 
 # Overview
 
-See more in codes [config](https://github.com/FriendsOfNette/DI-syntax/blob/master/2.4/syntax/neon/syntax.neon), [extension](https://github.com/FriendsOfNette/DI-syntax/blob/master/2.4/syntax/extension/SyntaxExtension.php).
+See more in codes [config](https://github.com/planette/cookbook-dependency-injection/blob/master/2.4/syntax/neon/syntax.neon), [extension](https://github.com/planette/cookbook-dependency-injection/blob/master/2.4/syntax/extension/SyntaxExtension.php).
 
 ## Simple
 
-### Config ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/2.4/syntax/neon/syntax.neon#L3-L10))
+### Config ([code](https://github.com/planette/cookbook-dependency-injection/blob/master/2.4/syntax/neon/syntax.neon#L3-L10))
 
 ```yaml
 services:
@@ -44,7 +45,7 @@ services:
         create: TestClass
 ```
 
-### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/2.4/syntax/extension/SyntaxExtension.php#L14-L23))
+### Extension ([code](https://github.com/planette/cookbook-dependency-injection/blob/master/2.4/syntax/extension/SyntaxExtension.php#L14-L23))
 
 ```php
 $builder = $this->getContainerBuilder();
@@ -59,11 +60,11 @@ $builder->addDefinition('a3')
     ->setFactory('TestClass');
 ```
 
-> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/2.4/container/Container_syntax.php#L111-L138)
+> #### [Compiled result](https://github.com/planette/cookbook-dependency-injection/blob/master/2.4/container/Container_syntax.php#L111-L138)
 
 ## Options
 
-### Config ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/2.4/syntax/neon/syntax.neon#L12-L19))
+### Config ([code](https://github.com/planette/cookbook-dependency-injection/blob/master/2.4/syntax/neon/syntax.neon#L12-L19))
 
 ```yaml
 services:
@@ -76,7 +77,7 @@ services:
         inject: on
 ```
 
-### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/2.4/syntax/extension/SyntaxExtension.php#L25-L33))
+### Extension ([code](https://github.com/planette/cookbook-dependency-injection/blob/master/2.4/syntax/extension/SyntaxExtension.php#L25-L33))
 
 ```php
 $builder = $this->getContainerBuilder();
@@ -90,11 +91,11 @@ $builder->addDefinition('b2')
     ->setInject(TRUE);
 ```
 
-> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/2.4/container/Container_syntax.php#L141-L158)
+> #### [Compiled result](https://github.com/planette/cookbook-dependency-injection/blob/master/2.4/container/Container_syntax.php#L141-L158)
 
 ## Arguments
 
-### Config ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/2.4/syntax/neon/syntax.neon#L21-L38))
+### Config ([code](https://github.com/planette/cookbook-dependency-injection/blob/master/2.4/syntax/neon/syntax.neon#L21-L38))
 
 ```yaml
 services:
@@ -117,7 +118,7 @@ services:
         arguments: [b: 2]
 ```
 
-### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/2.4/syntax/extension/SyntaxExtension.php#L35-L56))
+### Extension ([code](https://github.com/planette/cookbook-dependency-injection/blob/master/2.4/syntax/extension/SyntaxExtension.php#L35-L56))
 
 ```php
 $builder = $this->getContainerBuilder();
@@ -144,11 +145,11 @@ $builder->addDefinition('c3b')
     ->setClass('TestClass2', ['b' => 2]);
 ```
 
-> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/2.4/container/Container_syntax.php#L161-L218)
+> #### [Compiled result](https://github.com/planette/cookbook-dependency-injection/blob/master/2.4/container/Container_syntax.php#L161-L218)
 
 ## Tags
 
-### Config ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/2.4/syntax/neon/syntax.neon#L40-L46))
+### Config ([code](https://github.com/planette/cookbook-dependency-injection/blob/master/2.4/syntax/neon/syntax.neon#L40-L46))
 
 ```yaml
 services:
@@ -160,7 +161,7 @@ services:
         tags: [t1: foobar]
 ```
 
-### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/2.4/syntax/extension/SyntaxExtension.php#L58-L66))
+### Extension ([code](https://github.com/planette/cookbook-dependency-injection/blob/master/2.4/syntax/extension/SyntaxExtension.php#L58-L66))
 
 ```php
 $builder = $this->getContainerBuilder();
@@ -174,11 +175,11 @@ $builder->addDefinition('d2')
     ->setTags(['t1' => 'foobar']);
 ```
 
-> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/2.4/container/Container_syntax.php#L230-L247)
+> #### [Compiled result](https://github.com/planette/cookbook-dependency-injection/blob/master/2.4/container/Container_syntax.php#L230-L247)
 
 ## Arguments + parameters
 
-### Config ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/2.4/syntax/neon/syntax.neon#L48-L65))
+### Config ([code](https://github.com/planette/cookbook-dependency-injection/blob/master/2.4/syntax/neon/syntax.neon#L48-L65))
 
 ```yaml
 services:
@@ -201,7 +202,7 @@ services:
         parameters: [a]
 ```
 
-### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/2.4/syntax/extension/SyntaxExtension.php#L68-L89))
+### Extension ([code](https://github.com/planette/cookbook-dependency-injection/blob/master/2.4/syntax/extension/SyntaxExtension.php#L68-L89))
 
 ```php
 $builder = $this->getContainerBuilder();
@@ -228,11 +229,11 @@ $builder->addDefinition('e4')
     ->setParameters(['a']);
 ```
 
-> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/2.4/container/Container_syntax.php#L250-L287)
+> #### [Compiled result](https://github.com/planette/cookbook-dependency-injection/blob/master/2.4/container/Container_syntax.php#L250-L287)
 
 ## Implements (interfaces)
 
-### Config ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/2.4/syntax/neon/syntax.neon#L67-L110))
+### Config ([code](https://github.com/planette/cookbook-dependency-injection/blob/master/2.4/syntax/neon/syntax.neon#L67-L110))
 
 ```yaml
 services:
@@ -281,7 +282,7 @@ services:
         arguments: [%c%]
 ```
 
-### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/2.4/syntax/extension/SyntaxExtension.php#L91-L139))
+### Extension ([code](https://github.com/planette/cookbook-dependency-injection/blob/master/2.4/syntax/extension/SyntaxExtension.php#L91-L139))
 
 ```php
 $builder = $this->getContainerBuilder();
@@ -335,11 +336,11 @@ $builder->addDefinition('f7')
     ->setParameters(['c' => 1]);
 ```
 
-> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/2.4/container/Container_syntax.php#L290-L398)
+> #### [Compiled result](https://github.com/planette/cookbook-dependency-injection/blob/master/2.4/container/Container_syntax.php#L290-L398)
 
 ## References
 
-### Config ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/2.4/syntax/neon/syntax.neon#L112-L147))
+### Config ([code](https://github.com/planette/cookbook-dependency-injection/blob/master/2.4/syntax/neon/syntax.neon#L112-L147))
 
 ```yaml
 services:
@@ -380,7 +381,7 @@ services:
         parameters: [bar1, bar2]
 ```
 
-### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/2.4/syntax/extension/SyntaxExtension.php#L141-L181))
+### Extension ([code](https://github.com/planette/cookbook-dependency-injection/blob/master/2.4/syntax/extension/SyntaxExtension.php#L141-L181))
 
 ```php
 $builder = $this->getContainerBuilder();
@@ -426,11 +427,11 @@ $builder->addDefinition('g5d')
     )->setParameters(['bar1', 'bar2']);
 ```
 
-> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/2.4/container/Container_syntax.php#L401-L490)
+> #### [Compiled result](https://github.com/planette/cookbook-dependency-injection/blob/master/2.4/container/Container_syntax.php#L401-L490)
 
 ## Setup
 
-### Config ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/2.4/syntax/neon/syntax.neon#L149-L171))
+### Config ([code](https://github.com/planette/cookbook-dependency-injection/blob/master/2.4/syntax/neon/syntax.neon#L149-L171))
 
 ```yaml
 services:
@@ -458,7 +459,7 @@ services:
             - "?->onSuccess[] = ?"(@h1, @h2)
 ```
 
-### Extension ([code](https://github.com/FriendsOfNette/DI-syntax/blob/master/2.4/syntax/extension/SyntaxExtension.php#L183-L203))
+### Extension ([code](https://github.com/planette/cookbook-dependency-injection/blob/master/2.4/syntax/extension/SyntaxExtension.php#L183-L203))
 
 ```php
 $builder = $this->getContainerBuilder();
@@ -484,4 +485,4 @@ $builder->addDefinition('h3')
     ->addSetup(new Statement('?->onSuccess[] = ?', ['@h1', '@h2']));
 ```
 
-> #### [Compiled result](https://github.com/FriendsOfNette/DI-syntax/blob/master/2.4/container/Container_syntax.php#L493-L531)
+> #### [Compiled result](https://github.com/planette/cookbook-dependency-injection/blob/master/2.4/container/Container_syntax.php#L493-L531)

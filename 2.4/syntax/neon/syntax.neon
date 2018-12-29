@@ -7,7 +7,7 @@ services:
         class: TestClass
 
     a3:
-        create: TestClass
+        factory: TestClass
 
     # OPTIONS ====================================
     b1:

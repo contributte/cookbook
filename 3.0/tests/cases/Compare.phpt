@@ -15,7 +15,7 @@ class CompareLoader extends ContainerLoader
 		parent::__construct(TEMP_DIR, true);
 	}
 
-	public function getClassName($key)
+	public function getClassName($key): string
 	{
 		return 'Container_' . $key;
 	}
@@ -28,17 +28,16 @@ class CompareTest extends TestCase
 	{
 		// Create container based on extension
 		$loader = new CompareLoader();
-		$class = $loader->load('1', function (Compiler $compiler) {
+		$class = $loader->load(function (Compiler $compiler) {
 			$compiler->addExtension('test', new SyntaxExtension());
-		});
+		}, '1');
 
 		$container1 = new $class;
 
 		// Create container based on neon config
-		$loader = new CompareLoader();
-		$class = $loader->load('2', function (Compiler $compiler) {
+		$class = $loader->load(function (Compiler $compiler) {
 			$compiler->loadConfig(__DIR__ . '/../../syntax/neon/syntax.neon');
-		});
+		}, '2');
 
 		$container2 = new $class;
 

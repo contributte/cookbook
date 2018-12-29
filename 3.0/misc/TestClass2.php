@@ -3,11 +3,12 @@
 class TestClass2
 {
 
-    public function __construct($a = NULL, $b = NULL)
-    {
-    }
+	public function __construct($a = null, $b = null)
+	{
+	}
 
-    public function foo($bar = NULL) {
+	public function foo($bar = null)
+	{
 
-    }
+	}
 }

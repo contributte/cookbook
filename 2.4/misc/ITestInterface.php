@@ -3,8 +3,8 @@
 interface ITestInterface
 {
 
-    /**
-     * @return TestClass
-     */
-    function create();
+	/**
+	 * @return TestClass
+	 */
+	function create();
 }
