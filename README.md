@@ -7,6 +7,9 @@
 This repository is for education. The main goal is to show how to define services in cool Nette Dependency-Injection Container (nette/di).
 The examples are written in NEON (take a look at [ne-on.org](https://ne-on.org)) and in PHP classes called `CompilerExtension`.
 
+Related blogposts:
+- https://f3l1x.io/blog/2015/10/17/nette-jak-zapisovat-sluzby/
+
 ## Versions
 
 | Nette DI |  PHP |
