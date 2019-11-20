@@ -455,7 +455,7 @@ services:
     h3:
         class: stdClass
         setup:
-            - "$service->onSuccess[] = ?"([@h1, method])
+            - '$service->onSuccess[]' = [@h1, method]
             - "?->onSuccess[] = ?"(@h1, @h2)
 ```
 
