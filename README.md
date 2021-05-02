@@ -1,6 +1,6 @@
-# Nette dependency injection cookbook
+# Nette Cookbook
 
-[![Build Status](https://img.shields.io/travis/planette/cookbook-dependency-injection.svg?style=flat-square)](https://travis-ci.org/planette/cookbook-dependency-injection)
+[![Build Status](https://img.shields.io/travis/contributte/cookbook.svg?style=flat-square)](https://travis-ci.org/contributte/cookbook)
 
 ----
 
