@@ -1,8 +1,8 @@
 {
   "require-dev": {
     "php": ">=7.1",
-    "nette/di": "~2.4.0",
-    "ninjify/nunjuck": "~0.2.0"
+    "nette/di": "^2.4",
+    "ninjify/nunjuck": "^0.4"
   },
   "autoload-dev": {
     "classmap": [
