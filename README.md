@@ -14,17 +14,19 @@ Related blogposts:
 
 | Nette DI |  PHP |
 |-------|------|
+| [3.2](3.2) | >=8.1 |
+| [3.1](3.1) | >=8.0 |
 | [3.0](3.0) | >=7.1 |
 | [2.4](2.4) | >=7.1 |
-| [2.3](2.3) | <7.2 |
+| [2.3](2.3) | >=5.6 <7.3 |
 
 ## Latest reference
 
-* Configuration (https://doc.nette.org/en/2.4/configuring)
-* Dependency injection (https://doc.nette.org/en/2.4/dependency-injection)
-* Define extensions (https://doc.nette.org/en/2.4/di-extensions)
-* Built-in extensions (https://doc.nette.org/cs/2.4/di-builtin-extensions)
-* DI usage (https://doc.nette.org/en/2.4/di-usage)
+* Configuration (https://doc.nette.org/en/configuring)
+* Dependency injection (https://doc.nette.org/en/dependency-injection)
+* Define extensions (https://doc.nette.org/en/di-extensions)
+* Built-in extensions (https://doc.nette.org/cs/di-builtin-extensions)
+* DI usage (https://doc.nette.org/en/di-usage)
 
 ## Example
 
