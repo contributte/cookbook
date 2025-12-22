@@ -1,6 +1,6 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
-use Ninjify\Nunjuck\Environment;
+use Contributte\Tester\Environment;
 
 if (@!include __DIR__ . '/../vendor/autoload.php') {
 	echo 'Install Nette Tester using `composer update --dev`';
@@ -11,6 +11,3 @@ if (@!include __DIR__ . '/../vendor/autoload.php') {
 Environment::setupTester();
 Environment::setupTimezone();
 Environment::setupVariables(__DIR__);
-
-// Ignore E_USER_DEPRECATED: Some DI stuff
-error_reporting(~E_USER_DEPRECATED);

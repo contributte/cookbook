@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 use Nette\DI\Compiler;
 use Nette\DI\Container;
@@ -24,7 +24,7 @@ class CompareLoader extends ContainerLoader
 class CompareTest extends TestCase
 {
 
-	public function testCompare()
+	public function testCompare(): void
 	{
 		// Create container based on extension
 		$loader = new CompareLoader();
@@ -56,29 +56,17 @@ class CompareTest extends TestCase
 		$this->assertMethods($container1, $container2);
 	}
 
-	/**
-	 * @param array $m1
-	 * @param array $m2
-	 */
-	protected function assertAliases(array $m1, array $m2)
+	protected function assertAliases(array $m1, array $m2): void
 	{
 		Assert::equal($m1['aliases'], $m2['aliases']);
 	}
 
-	/**
-	 * @param array $m1
-	 * @param array $m2
-	 */
-	protected function assertServices(array $m1, array $m2)
+	protected function assertServices(array $m1, array $m2): void
 	{
 		Assert::equal($m1['services'], $m2['services']);
 	}
 
-	/**
-	 * @param array $m1
-	 * @param array $m2
-	 */
-	protected function assertTags(array $m1, array $m2)
+	protected function assertTags(array $m1, array $m2): void
 	{
 		$tags1 = $m1['tags'];
 		$tags2 = $m2['tags'];
@@ -88,11 +76,7 @@ class CompareTest extends TestCase
 		}
 	}
 
-	/**
-	 * @param array $m1
-	 * @param array $m2
-	 */
-	protected function assertTypes(array $m1, array $m2)
+	protected function assertTypes(array $m1, array $m2): void
 	{
 		$types1 = $m1['types'];
 		$types2 = $m2['types'];
@@ -112,11 +96,7 @@ class CompareTest extends TestCase
 		}
 	}
 
-	/**
-	 * @param Container $container1
-	 * @param Container $container2
-	 */
-	protected function assertMethods(Container $container1, Container $container2)
+	protected function assertMethods(Container $container1, Container $container2): void
 	{
 		$rc1 = new ReflectionClass($container1);
 		$rc2 = new ReflectionClass($container2);

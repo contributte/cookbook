@@ -1,10 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 
 interface ITestInterfaceGet
 {
 
-	/**
-	 * @return TestClass2
-	 */
-	function get();
+	function get(): TestClass2;
 }

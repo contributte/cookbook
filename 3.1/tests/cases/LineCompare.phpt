@@ -1,9 +1,8 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 use Nette\DI\Compiler;
 use Nette\DI\ContainerLoader;
 use Tester\Assert;
-use Tester\AssertException;
 use Tester\TestCase;
 
 require __DIR__ . '/../bootstrap.php';
@@ -24,7 +23,7 @@ class CompareLoader extends ContainerLoader
 class LineCompareTest extends TestCase
 {
 
-	public function testCompareLines()
+	public function testCompareLines(): void
 	{
 		$loader = new CompareLoader();
 
@@ -49,18 +48,10 @@ class LineCompareTest extends TestCase
 		$code2 = preg_replace('#^(.*)public function#sU', null, $code2);
 		$code2 = preg_replace('#(public function initialize.*})#sU', null, $code2);
 
-		//file_put_contents(TEMP_DIR . '/Container1.php', $code1);
-		//file_put_contents(TEMP_DIR . '/Container2.php', $code2);
-
 		$this->assertLines(explode(PHP_EOL, $code1), explode(PHP_EOL, $code2));
 	}
 
-	/**
-	 * @param array $code1
-	 * @param array $code2
-	 * @throws AssertException
-	 */
-	protected function assertLines(array $code1, array $code2)
+	protected function assertLines(array $code1, array $code2): void
 	{
 		if (count($code1) !== count($code2)) {
 			Assert::fail('Containers have not same number of lines.');
