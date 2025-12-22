@@ -1,11 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 
 interface ITestInterface3
 {
 
-	/**
-	 * @param string $c
-	 * @return TestClass2
-	 */
-	function create($c);
+	function create(string $c): TestClass2;
 }

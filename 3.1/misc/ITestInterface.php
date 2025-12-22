@@ -1,10 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 
 interface ITestInterface
 {
 
-	/**
-	 * @return TestClass
-	 */
-	function create();
+	function create(): TestClass;
 }
