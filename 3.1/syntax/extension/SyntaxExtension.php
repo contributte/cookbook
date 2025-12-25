@@ -108,13 +108,11 @@ final class SyntaxExtension extends CompilerExtension
 
 		$builder->addFactoryDefinition('f4a')
 			->setImplement('ITestInterface3')
-			->setParameters(['c'])
 			->getResultDefinition()
 			->setArguments([$builder->literal('$c')]);
 
 		$builder->addFactoryDefinition('f4b')
 			->setImplement('ITestInterface3')
-			->setParameters(['c'])
 			->getResultDefinition()
 			->setArguments([1]);
 
@@ -137,7 +135,6 @@ final class SyntaxExtension extends CompilerExtension
 
 		$builder->addFactoryDefinition('f7')
 			->setImplement('ITestInterface3')
-			->setParameters(['c' => 1])
 			->getResultDefinition()
 			->setFactory('@f7s')
 			->setArguments([$builder->literal('$c')]);

@@ -15,7 +15,7 @@ class CompareLoader extends ContainerLoader
 		parent::__construct(TEMP_DIR, true);
 	}
 
-	public function getClassName(string $key): string
+	public function getClassName(mixed $key): string
 	{
 		return 'Container_' . $key;
 	}
