@@ -82,12 +82,10 @@ services:
 
     f4a:
         implement: ITestInterface3
-        parameters: [c]
         arguments: [%c%]
 
     f4b:
         implement: ITestInterface3
-        parameters: [c]
         arguments: [1]
 
     f5s: TestClass2
@@ -106,7 +104,6 @@ services:
     f7:
         factory: @f7s
         implement: ITestInterface3
-        parameters: [c: 1]
         arguments: [%c%]
 
     # REFERENCES =================================
