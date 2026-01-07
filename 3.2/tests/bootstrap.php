@@ -9,6 +9,3 @@ if (@!include __DIR__ . '/../vendor/autoload.php') {
 
 // Configure environment
 Environment::setup(__DIR__);
-
-// Define TEMP_DIR constant for tests
-define('TEMP_DIR', Environment::getTmpDir());
