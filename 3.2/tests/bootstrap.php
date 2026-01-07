@@ -8,9 +8,7 @@ if (@!include __DIR__ . '/../vendor/autoload.php') {
 }
 
 // Configure environment
-Environment::setupTester();
-Environment::setupTimezone('Europe/Prague');
+Environment::setup(__DIR__);
 
-// Setup variables
-define('TEMP_DIR', __DIR__ . '/tmp/' . getmypid());
-@mkdir(TEMP_DIR, 0777, true);
+// Define TEMP_DIR constant for tests
+define('TEMP_DIR', Environment::getTmpDir());

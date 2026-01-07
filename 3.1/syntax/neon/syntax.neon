@@ -48,21 +48,17 @@ services:
     # ARGUMENTS + PARAMETERS =====================
     e1:
         class: TestClass2
-        parameters: [a]
-        arguments: [%a%]
+        arguments: [1]
 
     e2:
         class: TestClass2
-        parameters: [a: NULL, b: 1]
-        arguments: [%a%, %b%]
+        arguments: [1, 2]
 
     e3:
-        class: TestClass2(%a%)
-        parameters: [a]
+        class: TestClass2(1)
 
     e4:
-        class: TestClass2(b: %a%)
-        parameters: [a]
+        class: TestClass2(b: 1)
 
     # IMPLEMENTS (INTERFACES) ====================
     f1:
@@ -109,8 +105,7 @@ services:
     # REFERENCES =================================
     g1:
         class: TestClass2
-        parameters: [a: NULL, b: NULL]
-        arguments: [%a%, %b%]
+        arguments: [1, 2]
 
     g2: @g1
 
@@ -120,8 +115,7 @@ services:
 
     g4:
         factory: @g1
-        parameters: [b]
-        arguments: [b: %b%]
+        arguments: [b: 2]
 
     g5a:
         class: stdClass
@@ -130,18 +124,15 @@ services:
     g5b:
         class: stdClass
         factory: @g1::foo
-        parameters: [bar]
-        arguments: [%bar%]
+        arguments: [1]
 
     g5c:
         class: stdClass
-        factory: @g1::foo(%bar%)
-        parameters: [bar]
+        factory: @g1::foo(1)
 
     g5d:
         class: stdClass
-        factory: @g1(%bar1%)::foo(%bar2%)
-        parameters: [bar1, bar2]
+        factory: @g1(1)::foo(2)
 
     # SETUP ======================================
     h1:
