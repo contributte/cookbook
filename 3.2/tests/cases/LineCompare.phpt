@@ -1,5 +1,6 @@
 <?php declare(strict_types=1);
 
+use Contributte\Tester\Environment;
 use Nette\DI\Compiler;
 use Nette\DI\ContainerLoader;
 use Tester\Assert;
@@ -11,7 +12,7 @@ class CompareLoader extends ContainerLoader
 {
 	function __construct()
 	{
-		parent::__construct(TEMP_DIR, true);
+		parent::__construct(Environment::getTmpDir(), true);
 	}
 
 	public function generate(string $class, callable $generator): array
