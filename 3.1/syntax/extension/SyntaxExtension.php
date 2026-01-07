@@ -72,18 +72,18 @@ final class SyntaxExtension extends CompilerExtension
 
 		$builder->addDefinition('e1')
 			->setType('TestClass2')
-			->setArguments([$builder->literal('$a')]);
+			->setArguments([1]);
 
 		$builder->addDefinition('e2')
-			->setFactory('TestClass2', [$builder->literal('$a'), $builder->literal('$b')]);
+			->setFactory('TestClass2', [1, 2]);
 
 		$builder->addDefinition('e3')
 			->setType('TestClass2')
-			->setArguments([$builder->literal('$a')]);
+			->setArguments([1]);
 
 		$builder->addDefinition('e4')
 			->setType('TestClass2')
-			->setArguments([null, $builder->literal('$a')]);
+			->setArguments([null, 1]);
 
 		// IMPLEMENTS (INTERFACES) ===============
 
@@ -143,8 +143,7 @@ final class SyntaxExtension extends CompilerExtension
 
 		$builder->addDefinition('g1')
 			->setType('TestClass2')
-			->setArguments([$builder->literal('$a'), $builder->literal('$b')])
-			->setParameters(['a' => null, 'b' => null]);
+			->setArguments([1, 2]);
 
 		$builder->addDefinition('g2')
 			->setFactory('@g1');
@@ -155,8 +154,7 @@ final class SyntaxExtension extends CompilerExtension
 
 		$builder->addDefinition('g4')
 			->setFactory('@g1')
-			->setArguments(['b' => $builder->literal('$b')])
-			->setParameters(['b']);
+			->setArguments(['b' => 2]);
 
 		$builder->addDefinition('g5a')
 			->setType('stdClass')
@@ -165,21 +163,19 @@ final class SyntaxExtension extends CompilerExtension
 		$builder->addDefinition('g5b')
 			->setType('stdClass')
 			->setFactory('@g1::foo')
-			->setArguments([$builder->literal('$bar')])
-			->setParameters(['bar']);
+			->setArguments([1]);
 
 		$builder->addDefinition('g5c')
 			->setType('stdClass')
-			->setFactory('@g1::foo', [$builder->literal('$bar')])
-			->setParameters(['bar']);
+			->setFactory('@g1::foo', [1]);
 
 		$builder->addDefinition('g5d')
 			->setType('stdClass')
 			->setFactory(new Statement([
-					new Statement('@g1', [$builder->literal('$bar1')]),
+					new Statement('@g1', [1]),
 					'foo',
-				], [$builder->literal('$bar2')])
-			)->setParameters(['bar1', 'bar2']);
+				], [2])
+			);
 
 		// SETUP =================================
 
