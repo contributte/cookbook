@@ -41,58 +41,53 @@ class CompareTest extends TestCase
 
 		$container2 = new $class;
 
-		// Access meta property
+		// Access container properties via reflection
+		$aliasesProperty = new ReflectionProperty('Nette\DI\Container', 'aliases');
+		$aliasesProperty->setAccessible(true);
 
-		$property = new ReflectionProperty('Nette\DI\Container', 'meta');
-		$property->setAccessible(true);
+		$tagsProperty = new ReflectionProperty('Nette\DI\Container', 'tags');
+		$tagsProperty->setAccessible(true);
 
-		$meta1 = $property->getValue($container1);
-		$meta2 = $property->getValue($container2);
+		$wiringProperty = new ReflectionProperty('Nette\DI\Container', 'wiring');
+		$wiringProperty->setAccessible(true);
 
-		$this->assertAliases($meta1, $meta2);
-		$this->assertServices($meta1, $meta2);
-		$this->assertTags($meta1, $meta2);
-		$this->assertTypes($meta1, $meta2);
+		$this->assertAliases($aliasesProperty->getValue($container1), $aliasesProperty->getValue($container2));
+		$this->assertTags($tagsProperty->getValue($container1), $tagsProperty->getValue($container2));
+		$this->assertTypes($wiringProperty->getValue($container1), $wiringProperty->getValue($container2));
 		$this->assertMethods($container1, $container2);
 	}
 
-	protected function assertAliases(array $m1, array $m2): void
+	protected function assertAliases(array $aliases1, array $aliases2): void
 	{
-		Assert::equal($m1['aliases'], $m2['aliases']);
+		Assert::equal($aliases1, $aliases2);
 	}
 
-	protected function assertServices(array $m1, array $m2): void
+	protected function assertTags(array $tags1, array $tags2): void
 	{
-		Assert::equal($m1['services'], $m2['services']);
-	}
-
-	protected function assertTags(array $m1, array $m2): void
-	{
-		$tags1 = $m1['tags'];
-		$tags2 = $m2['tags'];
-
 		foreach ($tags1 as $k => $v) {
-			Assert::equal($tags1[$k], $tags2[$k]);
+			if (isset($tags2[$k])) {
+				Assert::equal($tags1[$k], $tags2[$k]);
+			}
 		}
 	}
 
-	protected function assertTypes(array $m1, array $m2): void
+	protected function assertTypes(array $wiring1, array $wiring2): void
 	{
-		$types1 = $m1['types'];
-		$types2 = $m2['types'];
-
-		foreach ($types1 as $class => $array) {
+		foreach ($wiring1 as $class => $array) {
 			if (isset($array[0])) {
-				natsort($types1[$class][0]);
-				natsort($types2[$class][0]);
-				Assert::equal(array_values($types1[$class][0]), array_values($types2[$class][0]));
+				$arr1 = $wiring1[$class][0];
+				$arr2 = $wiring2[$class][0];
+				natsort($arr1);
+				natsort($arr2);
+				Assert::equal(array_values($arr1), array_values($arr2));
 			}
 			if (isset($array[1])) {
-				natsort($types1[$class][1]);
-				natsort($types2[$class][1]);
-				Assert::equal(array_values($types1[$class][1]), array_values($types2[$class][1]));
+				$arr1 = $wiring1[$class][1];
+				$arr2 = $wiring2[$class][1];
+				natsort($arr1);
+				natsort($arr2);
+				Assert::equal(array_values($arr1), array_values($arr2));
 			}
-
 		}
 	}
 

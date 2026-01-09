@@ -83,7 +83,7 @@ final class SyntaxExtension extends CompilerExtension
 
 		$builder->addDefinition('e4')
 			->setType('TestClass2')
-			->setArguments([null, 1]);
+			->setArguments(['b' => 1]);
 
 		// IMPLEMENTS (INTERFACES) ===============
 
@@ -94,7 +94,7 @@ final class SyntaxExtension extends CompilerExtension
 			->setResultDefinition(new ServiceDefinition())
 			->setImplement('ITestInterface')
 			->getResultDefinition()
-			->setType('stdClass');
+			->setType('TestClass');
 
 		$builder->addFactoryDefinition('f3a')
 			->setImplement('ITestInterface2')
@@ -109,7 +109,7 @@ final class SyntaxExtension extends CompilerExtension
 		$builder->addFactoryDefinition('f4a')
 			->setImplement('ITestInterface3')
 			->getResultDefinition()
-			->setArguments([$builder->literal('$c')]);
+			->setArguments([1]);
 
 		$builder->addFactoryDefinition('f4b')
 			->setImplement('ITestInterface3')
@@ -120,24 +120,8 @@ final class SyntaxExtension extends CompilerExtension
 			->setType('TestClass2');
 
 		$builder->addAccessorDefinition('f5')
-			->setImplement('ITestInterfaceGet');
-
-		$builder->addDefinition('f6s')
-			->setType('TestClass');
-
-		$builder->addFactoryDefinition('f6')
-			->setImplement('ITestInterface')
-			->getResultDefinition()
-			->setFactory('@f6s');
-
-		$builder->addDefinition('f7s')
-			->setType('TestClass2');
-
-		$builder->addFactoryDefinition('f7')
-			->setImplement('ITestInterface3')
-			->getResultDefinition()
-			->setFactory('@f7s')
-			->setArguments([$builder->literal('$c')]);
+			->setImplement('ITestInterfaceGet')
+			->setReference('@f5s');
 
 		// REFERENCES ============================
 
@@ -147,14 +131,6 @@ final class SyntaxExtension extends CompilerExtension
 
 		$builder->addDefinition('g2')
 			->setFactory('@g1');
-
-		$builder->addDefinition('g3')
-			->setFactory('@g1')
-			->setArguments([1]);
-
-		$builder->addDefinition('g4')
-			->setFactory('@g1')
-			->setArguments(['b' => 2]);
 
 		$builder->addDefinition('g5a')
 			->setType('stdClass')
@@ -169,14 +145,6 @@ final class SyntaxExtension extends CompilerExtension
 			->setType('stdClass')
 			->setFactory('@g1::foo', [1]);
 
-		$builder->addDefinition('g5d')
-			->setType('stdClass')
-			->setFactory(new Statement([
-					new Statement('@g1', [1]),
-					'foo',
-				], [2])
-			);
-
 		// SETUP =================================
 
 		$builder->addDefinition('h1')
@@ -187,17 +155,6 @@ final class SyntaxExtension extends CompilerExtension
 			->addSetup('foo', [1])
 			->addSetup(new Statement(['@self', 'foo'], [1]))
 			->addSetup('@self::foo', [1]);
-
-		$builder->addDefinition('h2')
-			->setType('stdClass')
-			->addSetup(new Statement('$service->hello(?)', ['@h1']))
-			->addSetup(new Statement('$service->hi(?)', ['@container']))
-			->addSetup(new Statement('My\\Tracy\\Bar::init(?)', ['@self']));
-
-		$builder->addDefinition('h3')
-			->setType('stdClass')
-			->addSetup(new Statement('$service->onSuccess[] = ?', [['@h1', 'method']]))
-			->addSetup(new Statement('?->onSuccess[] = ?', ['@h1', '@h2']));
 	}
 
 	public function afterCompile(ClassType $class): void
