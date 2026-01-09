@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cat:*)",
+      "Bash(composer install:*)",
+      "Bash(composer tests:*)",
+      "Bash(make test:*)",
+      "Bash(make test-all:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git rebase:*)",
+      "Bash(git stash:*)"
+    ]
+  }
+}
