@@ -12,11 +12,11 @@ services:
     # OPTIONS ====================================
     b1:
         class: TestClass
-        autowired: off
+        autowired: false
 
     b2:
         class: TestClass
-        inject: on
+        inject: true
 
     # ARGUMENTS ====================================
     c1a: TestClass2(1, 2)
@@ -48,28 +48,24 @@ services:
     # ARGUMENTS + PARAMETERS =====================
     e1:
         class: TestClass2
-        parameters: [a]
-        arguments: [%a%]
+        arguments: [1]
 
     e2:
         class: TestClass2
-        parameters: [a: NULL, b: 1]
-        arguments: [%a%, %b%]
+        arguments: [1, 2]
 
     e3:
-        class: TestClass2(%a%)
-        parameters: [a]
+        factory: TestClass2(1)
 
     e4:
-        class: TestClass2(b: %a%)
-        parameters: [a]
+        factory: TestClass2(b: 1)
 
     # IMPLEMENTS (INTERFACES) ====================
     f1:
         implement: ITestInterface
 
     f2:
-        class: stdClass
+        class: TestClass
         implement: ITestInterface
 
     f3a:
@@ -82,12 +78,10 @@ services:
 
     f4a:
         implement: ITestInterface3
-        parameters: [c]
-        arguments: [%c%]
+        arguments: [1]
 
     f4b:
         implement: ITestInterface3
-        parameters: [c]
         arguments: [1]
 
     f5s: TestClass2
@@ -95,36 +89,12 @@ services:
         factory: @f5s
         implement: ITestInterfaceGet
 
-    f6s:
-        class: TestClass
-    f6:
-        factory: @f6s
-        implement: ITestInterface
-
-    f7s:
-        class: TestClass2
-    f7:
-        factory: @f7s
-        implement: ITestInterface3
-        parameters: [c: 1]
-        arguments: [%c%]
-
     # REFERENCES =================================
     g1:
         class: TestClass2
-        parameters: [a: NULL, b: NULL]
-        arguments: [%a%, %b%]
+        arguments: [1, 2]
 
     g2: @g1
-
-    g3:
-        factory: @g1
-        arguments: [1]
-
-    g4:
-        factory: @g1
-        parameters: [b]
-        arguments: [b: %b%]
 
     g5a:
         class: stdClass
@@ -133,18 +103,11 @@ services:
     g5b:
         class: stdClass
         factory: @g1::foo
-        parameters: [bar]
-        arguments: [%bar%]
+        arguments: [1]
 
     g5c:
         class: stdClass
-        factory: @g1::foo(%bar%)
-        parameters: [bar]
-
-    g5d:
-        class: stdClass
-        factory: @g1(%bar1%)::foo(%bar2%)
-        parameters: [bar1, bar2]
+        factory: @g1::foo(1)
 
     # SETUP ======================================
     h1:
@@ -156,16 +119,3 @@ services:
             - foo(1)
             - [@self, foo](1)
             - @self::foo(1)
-
-    h2:
-        class: stdClass
-        setup:
-            - "$service->hello(?)"(@h1)
-            - "$service->hi(?)"(@container)
-            - "My\\Tracy\\Bar::init(?)"(@self)
-
-    h3:
-        class: stdClass
-        setup:
-            - "$service->onSuccess[] = ?"([@h1, method])
-            - "?->onSuccess[] = ?"(@h1, @h2)

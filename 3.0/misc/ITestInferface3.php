@@ -3,5 +3,5 @@
 interface ITestInterface3
 {
 
-	function create($c): TestClass2;
+	function create($a): TestClass2;
 }

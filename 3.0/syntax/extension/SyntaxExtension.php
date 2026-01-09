@@ -1,23 +1,24 @@
 <?php
 
 use Nette\DI\CompilerExtension;
-use Nette\DI\Statement;
+use Nette\DI\Definitions\ServiceDefinition;
+use Nette\DI\Definitions\Statement;
 use Nette\PhpGenerator\ClassType;
 
 final class SyntaxExtension extends CompilerExtension
 {
 
-	public function loadConfiguration()
+	public function loadConfiguration(): void
 	{
 		$builder = $this->getContainerBuilder();
 
 		// SIMPLE ================================
 
 		$builder->addDefinition('a1')
-			->setClass('TestClass');
+			->setType('TestClass');
 
 		$builder->addDefinition('a2')
-			->setClass('TestClass');
+			->setType('TestClass');
 
 		$builder->addDefinition('a3')
 			->setFactory('TestClass');
@@ -25,31 +26,31 @@ final class SyntaxExtension extends CompilerExtension
 		// OPTIONS ===============================
 
 		$builder->addDefinition('b1')
-			->setClass('TestClass')
+			->setType('TestClass')
 			->setAutowired(false);
 
 		$builder->addDefinition('b2')
-			->setClass('TestClass')
+			->setType('TestClass')
 			->addTag('inject');
 
 		// ARGUMENTS =============================
 
 		$builder->addDefinition('c1a')
-			->setClass('TestClass2')
+			->setType('TestClass2')
 			->setArguments([1, 2]);
 
 		$builder->addDefinition('c1b')
 			->setFactory('TestClass2', [1, 2]);
 
 		$builder->addDefinition('c2a')
-			->setClass('TestClass2')
+			->setType('TestClass2')
 			->setArguments([1]);
 
 		$builder->addDefinition('c2b')
 			->setFactory('TestClass2', [1]);
 
 		$builder->addDefinition('c3a')
-			->setClass('TestClass2')
+			->setType('TestClass2')
 			->setArguments(['b' => 2]);
 
 		$builder->addDefinition('c3b')
@@ -58,151 +59,103 @@ final class SyntaxExtension extends CompilerExtension
 		// TAGS ==================================
 
 		$builder->addDefinition('d1')
-			->setClass('TestClass')
+			->setType('TestClass')
 			->addTag('t1');
 
 		$builder->addDefinition('d2')
-			->setClass('TestClass')
+			->setType('TestClass')
 			->setTags(['t1' => 'foobar']);
 
 		// ARGUMENTS + PARAMETERS ================
 
-		// $->setClass()->setArguments() <==> $->setFactory()
+		// $->setType()->setArguments() <==> $->setFactory()
 
 		$builder->addDefinition('e1')
-			->setClass('TestClass2')
-			->setArguments([$builder->literal('$a')]);
+			->setType('TestClass2')
+			->setArguments([1]);
 
 		$builder->addDefinition('e2')
-			->setFactory('TestClass2', [$builder->literal('$a'), $builder->literal('$b')]);
+			->setFactory('TestClass2', [1, 2]);
 
 		$builder->addDefinition('e3')
-			->setClass('TestClass2')
-			->setArguments([$builder->literal('$a')]);
+			->setFactory('TestClass2', [1]);
 
 		$builder->addDefinition('e4')
-			->setClass('TestClass2')
-			->setArguments([null, $builder->literal('$a')]);
+			->setFactory('TestClass2', ['b' => 1]);
 
 		// IMPLEMENTS (INTERFACES) ===============
 
-		$builder->addDefinition('f1')
+		$builder->addFactoryDefinition('f1')
 			->setImplement('ITestInterface');
 
-		$builder->addDefinition('f2')
-			->setClass('stdClass')
-			->setImplement('ITestInterface');
+		$builder->addFactoryDefinition('f2')
+			->setResultDefinition(new ServiceDefinition())
+			->setImplement('ITestInterface')
+			->getResultDefinition()
+			->setType('TestClass');
 
-		$builder->addDefinition('f3a')
+		$builder->addFactoryDefinition('f3a')
 			->setImplement('ITestInterface2')
+			->getResultDefinition()
 			->setArguments([1, 2]);
 
-		$builder->addDefinition('f3b')
+		$builder->addFactoryDefinition('f3b')
 			->setImplement('ITestInterface2')
+			->getResultDefinition()
 			->setArguments(['b' => 2]);
 
-		$builder->addDefinition('f4a')
+		$builder->addFactoryDefinition('f4a')
 			->setImplement('ITestInterface3')
-			->setArguments([$builder->literal('$c')])
-			->setParameters(['c']);
+			->getResultDefinition()
+			->setArguments([1]);
 
-		$builder->addDefinition('f4b')
+		$builder->addFactoryDefinition('f4b')
 			->setImplement('ITestInterface3')
-			->setArguments([1])
-			->setParameters(['c']);
+			->getResultDefinition()
+			->setArguments([1]);
 
 		$builder->addDefinition('f5s')
-			->setClass('TestClass2');
+			->setType('TestClass2');
 
-		$builder->addDefinition('f5')
-			->setFactory('@f5s')
-			->setImplement('ITestInterfaceGet');
-
-		$builder->addDefinition('f6s')
-			->setClass('TestClass');
-
-		$builder->addDefinition('f6')
-			->setFactory('@f6s')
-			->setImplement('ITestInterface');
-
-		$builder->addDefinition('f7s')
-			->setClass('TestClass2');
-
-		$builder->addDefinition('f7')
-			->setFactory('@f7s')
-			->setImplement('ITestInterface3')
-			->setArguments([$builder->literal('$c')])
-			->setParameters(['c' => 1]);
+		$builder->addAccessorDefinition('f5')
+			->setImplement('ITestInterfaceGet')
+			->setReference('@f5s');
 
 		// REFERENCES ============================
 
 		$builder->addDefinition('g1')
-			->setClass('TestClass2')
-			->setArguments([$builder->literal('$a'), $builder->literal('$b')])
-			->setParameters(['a' => null, 'b' => null]);
+			->setType('TestClass2')
+			->setArguments([1, 2]);
 
 		$builder->addDefinition('g2')
 			->setFactory('@g1');
 
-		$builder->addDefinition('g3')
-			->setFactory('@g1')
-			->setArguments([1]);
-
-		$builder->addDefinition('g4')
-			->setFactory('@g1')
-			->setArguments(['b' => $builder->literal('$b')])
-			->setParameters(['b']);
-
 		$builder->addDefinition('g5a')
-			->setClass('stdClass')
+			->setType('stdClass')
 			->setFactory('@g1::foo');
 
 		$builder->addDefinition('g5b')
-			->setClass('stdClass')
+			->setType('stdClass')
 			->setFactory('@g1::foo')
-			->setArguments([$builder->literal('$bar')])
-			->setParameters(['bar']);
+			->setArguments([1]);
 
 		$builder->addDefinition('g5c')
-			->setClass('stdClass')
-			->setFactory('@g1::foo', [$builder->literal('$bar')])
-			->setParameters(['bar']);
-
-		$builder->addDefinition('g5d')
-			->setClass('stdClass')
-			->setFactory(new Statement([
-					new Statement('@g1', [$builder->literal('$bar1')]),
-					'foo',
-				], [$builder->literal('$bar2')])
-			)->setParameters(['bar1', 'bar2']);
+			->setType('stdClass')
+			->setFactory('@g1::foo', [1]);
 
 		// SETUP =================================
 
 		$builder->addDefinition('h1')
-			->setClass('stdClass')
+			->setType('stdClass')
 			->addSetup('$a', [1])
 			->addSetup(new Statement(['@self', '$a'], [1]))
 			->addSetup('@self::$a', [1])
 			->addSetup('foo', [1])
 			->addSetup(new Statement(['@self', 'foo'], [1]))
 			->addSetup('@self::foo', [1]);
-
-		$builder->addDefinition('h2')
-			->setClass('stdClass')
-			->addSetup(new Statement('$service->hello(?)', ['@h1']))
-			->addSetup(new Statement('$service->hi(?)', ['@container']))
-			->addSetup(new Statement('My\\Tracy\\Bar::init(?)', ['@self']));
-
-		$builder->addDefinition('h3')
-			->setClass('stdClass')
-			->addSetup(new Statement('$service->onSuccess[] = ?', [['@h1', 'method']]))
-			->addSetup(new Statement('?->onSuccess[] = ?', ['@h1', '@h2']));
 	}
 
-	/**
-	 * @param ClassType $class
-	 */
-	public function afterCompile(ClassType $class)
+	public function afterCompile(ClassType $class): void
 	{
 		$initialize = $class->getMethod('initialize');
 
