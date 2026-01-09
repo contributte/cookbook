@@ -1,7 +1,7 @@
 {
   "require-dev": {
     "php": ">=8.2",
-    "nette/di": "^3.2",
+    "nette/di": "~3.2.0",
     "contributte/tester": "^0.4"
   },
   "autoload-dev": {
