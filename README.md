@@ -49,7 +49,3 @@ $builder->addDefinition('facebookAuthorizator')
 $builder->addDefinition('redisCache')
     ->setClass('Predis\PredisClient');
 ```
-
-## Roadmap
-
-- [?] Create some online tool using now.sh ([@zeit](https://github.com/zeit)).
