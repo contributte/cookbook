@@ -44,10 +44,10 @@ class LineCompareTest extends TestCase
 		$code1 = $container1[0];
 		$code2 = $container2[0];
 
-		$code1 = preg_replace('#^(.*)public function#sU', null, $code1);
-		$code1 = preg_replace('#(public function initialize.*})#sU', null, $code1);
-		$code2 = preg_replace('#^(.*)public function#sU', null, $code2);
-		$code2 = preg_replace('#(public function initialize.*})#sU', null, $code2);
+		$code1 = preg_replace('#^(.*)public function#sU', '', $code1);
+		$code1 = preg_replace('#(public function initialize.*})#sU', '', $code1);
+		$code2 = preg_replace('#^(.*)public function#sU', '', $code2);
+		$code2 = preg_replace('#(public function initialize.*})#sU', '', $code2);
 
 		$this->assertLines(explode(PHP_EOL, $code1), explode(PHP_EOL, $code2));
 	}

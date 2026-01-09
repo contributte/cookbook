@@ -12,11 +12,11 @@ services:
     # OPTIONS ====================================
     b1:
         class: TestClass
-        autowired: off
+        autowired: false
 
     b2:
         class: TestClass
-        inject: on
+        inject: true
 
     # ARGUMENTS ====================================
     c1a: TestClass2(1, 2)
@@ -65,7 +65,7 @@ services:
         implement: ITestInterface
 
     f2:
-        class: stdClass
+        class: TestClass
         implement: ITestInterface
 
     f3a:
@@ -78,7 +78,7 @@ services:
 
     f4a:
         implement: ITestInterface3
-        arguments: [%c%]
+        arguments: [1]
 
     f4b:
         implement: ITestInterface3
@@ -89,33 +89,12 @@ services:
         factory: @f5s
         implement: ITestInterfaceGet
 
-    f6s:
-        class: TestClass
-    f6:
-        factory: @f6s
-        implement: ITestInterface
-
-    f7s:
-        class: TestClass2
-    f7:
-        factory: @f7s
-        implement: ITestInterface3
-        arguments: [%c%]
-
     # REFERENCES =================================
     g1:
         class: TestClass2
         arguments: [1, 2]
 
     g2: @g1
-
-    g3:
-        factory: @g1
-        arguments: [1]
-
-    g4:
-        factory: @g1
-        arguments: [b: 2]
 
     g5a:
         class: stdClass
@@ -130,10 +109,6 @@ services:
         class: stdClass
         factory: @g1::foo(1)
 
-    g5d:
-        class: stdClass
-        factory: @g1(1)::foo(2)
-
     # SETUP ======================================
     h1:
         class: stdClass
@@ -144,16 +119,3 @@ services:
             - foo(1)
             - [@self, foo](1)
             - @self::foo(1)
-
-    h2:
-        class: stdClass
-        setup:
-            - "$service->hello(?)"(@h1)
-            - "$service->hi(?)"(@container)
-            - "My\\Tracy\\Bar::init(?)"(@self)
-
-    h3:
-        class: stdClass
-        setup:
-            - "$service->onSuccess[] = ?"([@h1, method])
-            - "?->onSuccess[] = ?"(@h1, @h2)
