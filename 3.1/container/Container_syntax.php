@@ -6,11 +6,10 @@ declare(strict_types=1);
 
 class Container_syntax extends Nette\DI\Container
 {
-	protected $tags = ['inject' => ['b2' => true], 't1' => ['d1' => true, 'd2' => 'foobar']];
-	protected $types = ['container' => 'Nette\DI\Container'];
-	protected $aliases = [];
+	protected array $tags = ['inject' => ['b2' => true], 't1' => ['d1' => true, 'd2' => 'foobar']];
+	protected array $aliases = [];
 
-	protected $wiring = [
+	protected array $wiring = [
 		'Nette\DI\Container' => [['container']],
 		'TestClass' => [0 => ['a1', 'a2', 'a3', 'b2', 'd1', 'd2'], 2 => [3 => 'b1']],
 		'TestClass2' => [
@@ -28,7 +27,6 @@ class Container_syntax extends Nette\DI\Container
 	public function __construct(array $params = [])
 	{
 		parent::__construct($params);
-		$this->parameters += [];
 	}
 
 
@@ -88,17 +86,17 @@ class Container_syntax extends Nette\DI\Container
 
 	public function createServiceC3a(): TestClass2
 	{
-		return new TestClass2(null, 2);
+		return new TestClass2(b: 2);
 	}
 
 
 	public function createServiceC3b(): TestClass2
 	{
-		return new TestClass2(null, 2);
+		return new TestClass2(b: 2);
 	}
 
 
-	public function createServiceContainer(): Container_syntax
+	public function createServiceContainer(): Nette\DI\Container
 	{
 		return $this;
 	}
@@ -136,19 +134,16 @@ class Container_syntax extends Nette\DI\Container
 
 	public function createServiceE4(): TestClass2
 	{
-		return new TestClass2(null, 1);
+		return new TestClass2(b: 1);
 	}
 
 
 	public function createServiceF1(): ITestInterface
 	{
 		return new class ($this) implements ITestInterface {
-			private $container;
-
-
-			public function __construct(Container_syntax $container)
-			{
-				$this->container = $container;
+			public function __construct(
+				private Container_syntax $container,
+			) {
 			}
 
 
@@ -163,12 +158,9 @@ class Container_syntax extends Nette\DI\Container
 	public function createServiceF2(): ITestInterface
 	{
 		return new class ($this) implements ITestInterface {
-			private $container;
-
-
-			public function __construct(Container_syntax $container)
-			{
-				$this->container = $container;
+			public function __construct(
+				private Container_syntax $container,
+			) {
 			}
 
 
@@ -183,12 +175,9 @@ class Container_syntax extends Nette\DI\Container
 	public function createServiceF3a(): ITestInterface2
 	{
 		return new class ($this) implements ITestInterface2 {
-			private $container;
-
-
-			public function __construct(Container_syntax $container)
-			{
-				$this->container = $container;
+			public function __construct(
+				private Container_syntax $container,
+			) {
 			}
 
 
@@ -203,18 +192,15 @@ class Container_syntax extends Nette\DI\Container
 	public function createServiceF3b(): ITestInterface2
 	{
 		return new class ($this) implements ITestInterface2 {
-			private $container;
-
-
-			public function __construct(Container_syntax $container)
-			{
-				$this->container = $container;
+			public function __construct(
+				private Container_syntax $container,
+			) {
 			}
 
 
 			public function create(): TestClass2
 			{
-				return new TestClass2(null, 2);
+				return new TestClass2(b: 2);
 			}
 		};
 	}
@@ -223,12 +209,9 @@ class Container_syntax extends Nette\DI\Container
 	public function createServiceF4a(): ITestInterface3
 	{
 		return new class ($this) implements ITestInterface3 {
-			private $container;
-
-
-			public function __construct(Container_syntax $container)
-			{
-				$this->container = $container;
+			public function __construct(
+				private Container_syntax $container,
+			) {
 			}
 
 
@@ -243,12 +226,9 @@ class Container_syntax extends Nette\DI\Container
 	public function createServiceF4b(): ITestInterface3
 	{
 		return new class ($this) implements ITestInterface3 {
-			private $container;
-
-
-			public function __construct(Container_syntax $container)
-			{
-				$this->container = $container;
+			public function __construct(
+				private Container_syntax $container,
+			) {
 			}
 
 
@@ -263,12 +243,9 @@ class Container_syntax extends Nette\DI\Container
 	public function createServiceF5(): ITestInterfaceGet
 	{
 		return new class ($this) implements ITestInterfaceGet {
-			private $container;
-
-
-			public function __construct(Container_syntax $container)
-			{
-				$this->container = $container;
+			public function __construct(
+				private Container_syntax $container,
+			) {
 			}
 
 
@@ -329,9 +306,15 @@ class Container_syntax extends Nette\DI\Container
 	}
 
 
-	public function initialize()
+	public function initialize(): void
 	{
 		My\Tracy\Bar::init(1);
 		My\Tracy\Bar::init(1, 2);
+	}
+
+
+	protected function getStaticParameters(): array
+	{
+		return [];
 	}
 }
